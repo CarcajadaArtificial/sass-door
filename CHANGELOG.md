@@ -1,7 +1,6 @@
 # Changelog
 
-## `v0.0.2`
+## `v0.0.3`
 
 ### Minor updates
-  - `README.md`
-  - `src/_throw.scss`
+  - `package.json`

@@ -1,11 +1,12 @@
 {
   "name": "sass-door",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Sass Door 🚪 is a tiny error-handling library.",
   "license": "MIT",
   "author": "Oscar Alfonso Guerrero Nuñez",
   "files": [
     "src/*",
+    "index.scss",
     "CHANGELOG.md",
     "LICENSE",
     "README.md"
