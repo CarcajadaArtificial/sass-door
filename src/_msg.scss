@@ -1,0 +1,36 @@
+//   ___                   __  __
+//  | __|_ _ _ _ ___ _ _  |  \/  |___ ______ __ _ __ _ ___ ___
+//  | _|| '_| '_/ _ \ '_| | |\/| / -_|_-<_-</ _` / _` / -_|_-<
+//  |___|_| |_| \___/_|   |_|  |_\___/__/__/\__,_\__, \___/__/
+//                                               |___/
+// =====================================================================================================
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Creates a `(Value Error)`, these are used for incorrect values (e.g. incorrect types, values out of a range, not null, a string with a wrong format, etc).
+///
+/// @param {string} $value [null]
+///   The incorrect value.
+///
+/// @param {string} $expected [null]
+///   A guide on what the correct value must be.
+///
+/// @group msg
+///
+@function value-msg($value, $expected) {
+  @return '(Value Error) The value #{$value} is invalid. Expected: #{$expected}';
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Creates an `(Indexing Error)`, these are used for missing keys or values that must be present on a map or a list.
+///
+/// @param {string} $key [null]
+///   The key or value that wasn't found.
+///
+/// @param {string} $container [null]
+///   The list or map there `$key` wasn't found.
+///
+/// @group msg
+///
+@function index-msg($key, $container) {
+  @return '(Indexing Error) The value #{$key} was not found inside #{$container}';
+}

@@ -1,0 +1,5 @@
+dest: docs/
+src: src/
+
+display:
+  access: public
