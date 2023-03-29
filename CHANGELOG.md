@@ -1,6 +1,6 @@
 # Changelog
 
-## `v0.0.3`
+## `v0.0.4`
 
 ### Minor updates
-  - `package.json`
+  - `src/index.scss`
