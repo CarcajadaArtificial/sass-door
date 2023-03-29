@@ -1,23 +1,7 @@
 # Changelog
 
-## `v0.0.1`
+## `v0.0.2`
 
-### Transfered the `throw` feature from GarliCSS.
-  `src/_msg.scss`
-  `src/_throw.scss`
-
-### Added module forwarding 
-  `src/index.scss`
-  `index.scss`
-
-### Added Git Basics
-  `CHANGELOG.md`
-  `README.md`
-  `.gitignore`
-
-### Added Node
-  `package.json`
-
-### Added automatic documentation
-  `.sassdocrc`
-  
+### Minor updates
+  - `README.md`
+  - `src/_throw.scss`
