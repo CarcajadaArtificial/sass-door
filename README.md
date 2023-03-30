@@ -19,7 +19,7 @@ To use this library, one must simply import it using the `@use` sass keyword and
 ### Error handling in functions
 Once imported, the error-handling functions become available for usage. For example, this is how it would look like this:
 ```scss
-@use '../../lib/sass-door.scss' as *;
+@use 'path/to/lib/sass-door.scss' as *;
 
 @function example-function($ok) {
   @if not $ok {
@@ -45,7 +45,7 @@ As an additional feature, the error message string is also returned in the `thro
 ### Error handling in mixins
 There's also the `throw()` mixin, whose name is exactly the same as the `throw()` function, but the mixin must be called using the `@include` keyword.
 ```scss
-@use '../../lib/sass-door.scss' as *;
+@use 'path/to/lib/sass-door.scss' as *;
 
 @mixin example-mixin($ok) {
   @if not $ok {
@@ -78,7 +78,7 @@ As an additional feature, the error message string is also applied as a custom C
 I would recommend in your file structure have a `/lib/` directory where you can import Sass Door's index scss. This snippet contains all configurable variables with their default value.
 ```scss
 // ~/lib/sass-door.scss
-@forward 'path/to/sass-door' as * with (
+@forward 'path/to/sass-door' with (
   $catching-enabled: true,
 );
 ```
