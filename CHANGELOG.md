@@ -1,6 +1,6 @@
 # Changelog
 
-## `v0.0.6`
+## `v0.0.7`
 
-### Minor updates
-  - `README.md`
+### Added the `$mixin-style-name` configuration variable
+  - `src/_throw.scss`

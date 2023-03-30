@@ -75,10 +75,11 @@ As an additional feature, the error message string is also applied as a custom C
 ```
 
 ## Configuration
-I would recommend in your file structure have a `/lib/` directory where you can import Sass Door's index scss. This snippet contains all configurable variables with their default value.
+I would recommend in your file structure have a `/lib/` directory where you can import Sass Door's index scss. This snippet contains all configurable variables with their default value. [Read more](https://carcajadaartificial.github.io/sass-door/#config-variable)
 ```scss
 // ~/lib/sass-door.scss
 @forward 'path/to/sass-door' with (
   $catching-enabled: true,
+  $mixin-style-name: '--scss-error',
 );
 ```
