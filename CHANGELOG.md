@@ -1,6 +1,6 @@
 # Changelog
 
-## `v0.0.4`
+## `v0.0.5`
 
 ### Minor updates
-  - `src/index.scss`
+  - `README.md`
