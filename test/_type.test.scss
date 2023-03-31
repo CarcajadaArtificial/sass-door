@@ -1,0 +1,13 @@
+@use 'true' as *;
+@use '../index' as *;
+
+@include test-module('Type') {
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // x() [Function]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('x()') {
+    @include it('does') {
+      @include assert-equal(true, true);
+    }
+  }
+}

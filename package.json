@@ -1,6 +1,6 @@
 {
   "name": "sass-door",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Sass Door 🚪 is a tiny error-handling library.",
   "license": "MIT",
   "author": "Oscar Alfonso Guerrero Nuñez",
@@ -15,10 +15,13 @@
   "repository": "CarcajadaArtificial/sass-door",
   "scripts": {
     "publish": "npm publish; git checkout doc; git merge main --strategy-option ours; npm run doc; git add .; git commit -m \"Auto-update docs site\"; git push; git checkout main",
-    "doc": "sassdoc src/"
+    "doc": "sassdoc src/",
+    "test": "mocha"
   },
   "devDependencies": {
+    "mocha": "^10.2.0",
     "sass": "^1.58.3",
+    "sass-true": "^7.0.0",
     "sassdoc": "^2.7.4"
   }
 }

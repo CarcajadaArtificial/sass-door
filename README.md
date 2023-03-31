@@ -57,7 +57,7 @@ And once the `throw()` happens, it would look like this in the terminal:
 ```bash
 Error: "Incorrect input"
    ╷
-53 │   --scss-error: '#{throw($message, $catch)}';
+5  │   --scss-error: '#{throw($message, $catch)}';
    │                    ^^^^^^^^^^^^^^^^^^^^^^^
    ╵
    path/to/index.scss 5:5 example-mixin()
