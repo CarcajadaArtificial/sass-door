@@ -1,6 +1,10 @@
 # Changelog
 
-## `v0.0.7`
+## `v0.0.10`
 
-### Added the `$mixin-style-name` configuration variable
-  - `src/_throw.scss`
+### Added a Module for type validation
+  - `src/_type.scss`
+  - `test/_type.test.scss`
+
+### Minor updates
+  - `README.md`

@@ -1,0 +1,198 @@
+//   _____
+//  |_   _|  _ _ __  ___
+//    | || || | '_ \/ -_)
+//    |_| \_, | .__/\___|
+//        |__/|_|
+// =====================================================================================================
+@use 'sass:meta';
+@use 'sass:list';
+@use 'sass:map';
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This schema contains all the supported SCSS data types. There are two types of verifications:
+///   - t-o: meta.type-of()
+///   - u: unit()
+///
+/// @type {map}
+///
+/// @group type
+///
+// prettier-ignore
+$type-check-schemas: (
+  // Simple
+  any:            (                                 ),
+  number:         ( t-o: 'number'                   ),
+  color:          ( t-o: 'color'                    ),
+  calculation:    ( t-o: 'calculation'              ),
+  bool:           ( t-o: 'bool'                     ),
+  function:       ( t-o: 'function'                 ),
+  arglist:        ( t-o: 'arglist'                  ),
+  string:         ( t-o: 'string'                   ),
+  list:           ( t-o: 'list'                     ),
+  map:            ( t-o: 'map'                      ),
+  // Time
+  ms:             ( t-o: 'number',      u: 'ms'     ),
+  s:              ( t-o: 'number',      u: 's'      ),
+  // Angle
+  deg:            ( t-o: 'number',      u: 'deg'    ),
+  rad:            ( t-o: 'number',      u: 'rad'    ),
+  grad:           ( t-o: 'number',      u: 'grad'   ),
+  turn:           ( t-o: 'number',      u: 'turn'   ),
+  // Frecuency
+  Hz:             ( t-o: 'number',      u: 'Hz'     ),
+  kHz:            ( t-o: 'number',      u: 'kHz'    ),
+  // Relative Length
+  em:             ( t-o: 'number',      u: 'em'     ),
+  ex:             ( t-o: 'number',      u: 'ex'     ),
+  ch:             ( t-o: 'number',      u: 'ch'     ),
+  rem:            ( t-o: 'number',      u: 'rem'    ),
+  vw:             ( t-o: 'number',      u: 'vw'     ),
+  vh:             ( t-o: 'number',      u: 'vh'     ),
+  vmin:           ( t-o: 'number',      u: 'vmin'   ),
+  vmax:           ( t-o: 'number',      u: 'vmax'   ),
+  // Absolute length
+  cm:             ( t-o: 'number',      u: 'cm'     ),
+  mm:             ( t-o: 'number',      u: 'mm'     ),
+  in:             ( t-o: 'number',      u: 'in'     ),
+  px:             ( t-o: 'number',      u: 'px'     ),
+  pt:             ( t-o: 'number',      u: 'pt'     ),
+  pc:             ( t-o: 'number',      u: 'pc'     ),
+  // Percentage
+  pct:            ( t-o: 'number',      u: '%'      ),
+  // Resolution
+  dpi:            ( t-o: 'number',      u: 'dpi'    ),
+  dpcm:           ( t-o: 'number',      u: 'dpcm'   ),
+  dppx:           ( t-o: 'number',      u: 'dppx'   ),
+);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `meta.type-of($v) == $t`
+///
+/// @param {any} $v
+///   The value whose type is to be compared.
+///
+/// @param {string} $t
+///   The expected type for the value.
+///
+/// @return {bool} A bool for a type match confirmation.
+///
+@function t-o($v, $t) {
+  @return meta.type-of($v) == $t;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `unit($v) == $v`
+///
+/// @param {any} $v
+///   The value whose unit of measurement is to be compared.
+///
+/// @param {string} $t
+///   The expected type for the value.
+///
+/// @return {bool} A bool for a unit of measurement match confirmation.
+///
+/// @group type
+///
+@function u($v, $u) {
+  @return unit($v) == $u;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `meta.call($f, $p...);
+///
+/// @param {function} $f
+///   The function to be called
+///
+/// @param {arglist} $p
+///   The list of parameters to be passed to the function.
+///
+/// @return {any} The returned value from calling $f.
+///
+/// @group type
+///
+@function c($f, $p...) {
+  @return meta.call($f, $p...);
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function varifies the individual type of a value and compares it to the interfaced type.
+///
+/// @param {any} $value
+///   The value that will be type verified.
+///
+/// @param {any} $i-value
+///   The type of the value from the interface.
+///
+/// @return {bool} True if the value passes the check, false if it doesn't.
+///
+/// @group type
+///
+@function passes-type-check($value, $i-value) {
+  @if not map-has-key($type-check-schemas, $i-value) {
+    @if $value == null and ($i-value == 'null' or $i-value == null) {
+      @return true;
+    }
+    @return $value == $i-value;
+  } @else {
+    $type-check-schema: map-get($type-check-schemas, $i-value);
+    $typeof: map-get($type-check-schema, 't-o');
+    $unit: map-get($type-check-schema, 'u');
+
+    @if $typeof != null and not t-o($value, $typeof) {
+      @return false;
+    }
+    @if $unit != null and not u($value, $unit) {
+      @return false;
+    }
+  }
+  @return true;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function verifies the type of a value and looks for a match on a list of posible types.
+///
+/// @param {any} $value
+///   The value that will be type verified.
+///
+/// @param {list} $i-value
+///   The list of possible types for the value.
+///
+/// @returns {bool} True if the value passes the check, false if it doesn't.
+///
+/// @group type
+///
+@function passes-optional-list-type-check($value, $i-value) {
+  @each $type in $i-value {
+    $match: false;
+    @if passes-type-check($value, $type) {
+      $match: true;
+    }
+    @return $match;
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function verifies the types of the values inside a map. All the keys must match as well.
+///
+/// @param {map} $schema
+///   This map contains the values planned in the `$interface` map.
+///
+/// @param {map} $interface
+///   This map contains the type planning of the map `$schema`.
+///
+/// @returns {bool} True if the schema perfectly matches the interface, false if it doesn't.
+///
+/// @group type
+///
+@function type-check($schema, $interface) {
+  @each $key, $value in $schema {
+    $i-value: map-get($interface, $key);
+    @if (t-o($i-value, 'string') and not passes-type-check($value, $i-value)) or
+      (t-o($i-value, 'list') and not passes-optional-list-type-check($value, $i-value)) or
+      (t-o($i-value, 'map') and not type-check($value, $i-value))
+    {
+      @return false;
+    }
+  }
+  @return true;
+}
