@@ -16,6 +16,9 @@ To use this library, one must simply import it using the `@use` sass keyword and
 @use 'path/to/sass-door' as *;
 ```
 
+### Interface type validation
+With a few functions, a big map, and a little imagination we can simulate type safety right here in SCSS. _If only Scss would become rusty..._
+
 ### Error handling in functions
 Once imported, the error-handling functions become available for usage. For example, this is how it would look like this:
 ```scss

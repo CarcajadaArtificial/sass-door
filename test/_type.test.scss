@@ -1,13 +1,192 @@
 @use 'true' as *;
 @use '../index' as *;
 
+$correct-schema: (
+  v-any: null,
+  v-keyword: 'keyword',
+  v-str: 'example',
+  v-empty-str: '',
+  v-num: 420,
+  v-exact: 69,
+  v-hex: #420420,
+  v-true: true,
+  v-false: false,
+  v-null-string: null,
+  v-true-null: null,
+  v-ms: 1ms,
+  v-s: 1s,
+  v-deg: 1deg,
+  v-rad: 1rad,
+  v-grad: 1grad,
+  v-turn: 1turn,
+  v-Hz: 1Hz,
+  v-kHz: 1kHz,
+  v-em: 1em,
+  v-ex: 1ex,
+  v-ch: 1ch,
+  v-rem: 1rem,
+  v-vw: 1vw,
+  v-vh: 1vh,
+  v-vmin: 1vmin,
+  v-vmax: 1vmax,
+  v-cm: 1cm,
+  v-mm: 1mm,
+  v-in: 1in,
+  v-px: 1px,
+  v-pt: 1pt,
+  v-pc: 1pc,
+  v-pct: 1%,
+  v-dpi: 1dpi,
+  v-dpcm: 1dpcm,
+  v-dppx: 1dppx,
+  v-list: (
+    1,
+    2,
+    3,
+  ),
+  v-map: (
+    a: 1,
+    b: 2,
+  ),
+);
+
+$i-correct: (
+  v-any: 'any',
+  v-keyword: 'keyword',
+  v-str: 'string',
+  v-empty-str: 'string',
+  v-num: 'number',
+  v-exact: 69,
+  v-hex: 'color',
+  v-true: 'bool',
+  v-false: 'bool',
+  v-null-string: 'null',
+  v-true-null: null,
+  v-ms: 'ms',
+  v-s: 's',
+  v-deg: 'deg',
+  v-rad: 'rad',
+  v-grad: 'grad',
+  v-turn: 'turn',
+  v-Hz: 'Hz',
+  v-kHz: 'kHz',
+  v-em: 'em',
+  v-ex: 'ex',
+  v-ch: 'ch',
+  v-rem: 'rem',
+  v-vw: 'vw',
+  v-vh: 'vh',
+  v-vmin: 'vmin',
+  v-vmax: 'vmax',
+  v-cm: 'cm',
+  v-mm: 'mm',
+  v-in: 'in',
+  v-px: 'px',
+  v-pt: 'pt',
+  v-pc: 'pc',
+  v-pct: 'pct',
+  v-dpi: 'dpi',
+  v-dpcm: 'dpcm',
+  v-dppx: 'dppx',
+  v-list: 'list',
+  v-map: 'map',
+);
+
 @include test-module('Type') {
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // x() [Function]
+  // passes-type-check() [Function]
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  @include describe('x()') {
-    @include it('does') {
-      @include assert-equal(true, true);
+  @include describe('Individual type checking') {
+    @each $key, $value in $correct-schema {
+      $i-value: map-get($i-correct, $key);
+
+      @include it('checks type "#{$i-value}"') {
+        @include assert-true(passes-type-check($value, $i-value));
+      }
+    }
+  }
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // type-check() [Function]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('List of optional values') {
+    @include it('checks for a list of correct values') {
+      $schema: (
+        angle: 10deg,
+      );
+      $interface: (
+        angle: (
+          'deg',
+          'rad',
+          'grad',
+          'turn',
+        ),
+      );
+
+      @include assert-true(type-check($schema, $interface));
+    }
+    @include it('checks for a list of where the type did not match') {
+      $schema: (
+        angle: 10deg,
+      );
+      $interface: (
+        angle: (
+          'rad',
+          'grad',
+          'turn',
+        ),
+      );
+
+      @include assert-false(type-check($schema, $interface));
+    }
+  }
+
+  @include describe('Subinterfaces') {
+    @include it('checks for a correct subinterface') {
+      $schema: (
+        subinterface: (
+          a: 4,
+          b: 20,
+        ),
+      );
+      $interface: (
+        subinterface: (
+          a: 'number',
+          b: 'number',
+        ),
+      );
+
+      @include assert-true(type-check($schema, $interface));
+    }
+
+    @include it('checks for a subinterface without a match') {
+      $schema: (
+        subinterface: (
+          a: 4,
+          b: 20,
+        ),
+      );
+      $interface: (
+        subinterface: (
+          a: 'number',
+          b: 'string',
+        ),
+      );
+
+      @include assert-false(type-check($schema, $interface));
+    }
+
+    @include it('checks for a wrongly typed subinterface') {
+      $schema: (
+        subinterface: (
+          a: 4,
+          b: 20,
+        ),
+      );
+      $interface: (
+        subinterface: 'number',
+      );
+
+      @include assert-false(type-check($schema, $interface));
     }
   }
 }
