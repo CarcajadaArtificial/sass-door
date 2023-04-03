@@ -1,5 +1,107 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Sass-door - v0.0.7</title><link rel="stylesheet" href="assets/css/main.css"><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,700" rel="stylesheet" type="text/css"><meta name="viewport" content="width=device-width"><meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible"><!-- Open Graph tags --><meta property="og:title" content="Sass-door - SassDoc"><meta property="og:type" content="website"><meta property="og:description" content="<p>Sass Door 🚪 is a tiny error-handling library.</p>
-"><!-- Thanks to Sass-lang.com for the icons --><link href="assets/images/favicon.png" rel="shortcut icon"></head><body><aside class="sidebar" role="nav"><div class="sidebar__header"><h1 class="sidebar__title">Sass-door - 0.0.7</h1></div><div class="sidebar__body"><button type="button" class="btn-toggle js-btn-toggle" data-alt="Open all">Close all</button><p class="sidebar__item sidebar__item--heading" data-slug="config"><a href="#config">config</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="config-variable"><a href="#config-variable">variables</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="config" data-name="catching-enabled" data-type="variable"><a href="#config-variable-catching-enabled">catching-enabled</a></li><li class="sidebar__item sassdoc__item" data-group="config" data-name="mixin-style-name" data-type="variable"><a href="#config-variable-mixin-style-name">mixin-style-name</a></li></ul></div><p class="sidebar__item sidebar__item--heading" data-slug="msg"><a href="#msg">msg</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="msg-function"><a href="#msg-function">functions</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="msg" data-name="value-msg" data-type="function"><a href="#msg-function-value-msg">value-msg</a></li><li class="sidebar__item sassdoc__item" data-group="msg" data-name="index-msg" data-type="function"><a href="#msg-function-index-msg">index-msg</a></li></ul></div><p class="sidebar__item sidebar__item--heading" data-slug="throw"><a href="#throw">throw</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="throw-function"><a href="#throw-function">functions</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="throw" data-name="throw" data-type="function"><a href="#throw-function-throw">throw</a></li></ul><p class="sidebar__item sidebar__item--sub-heading" data-slug="throw-mixin"><a href="#throw-mixin">mixins</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="throw" data-name="throw" data-type="mixin"><a href="#throw-mixin-throw">throw</a></li></ul></div></div></aside><article class="main" role="main"><header class="header" role="banner"><div class="container"><div class="sassdoc__searchbar searchbar"><label for="js-search-input" class="visually-hidden">Search</label><div class="searchbar__form" id="js-search"><input name="search" type="search" class="searchbar__field" autocomplete="off" autofocus id="js-search-input" placeholder="Search"><ul class="searchbar__suggestions" id="js-search-suggestions"></ul></div></div></div></header><section class="main__section"><h1 class="main__heading" id="config"><div class="container">config</div></h1><section class="main__sub-section" id="config-variable"><h2 class="main__heading--secondary"><div class="container">variables</div></h2><section class="main__item container item" id="config-variable-catching-enabled"><h3 class="item__heading"><a class="item__name" href="#variable-catching-enabled">catching-enabled</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$catching-enabled: true !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>This variable sets the default value for whether error messages should be caught and displayed. It can be overritten to false to disable this feature.</p></div><h3 class="item__sub-heading">Type</h3><p><code>Bool</code></p></section><section class="main__item container item" id="config-variable-mixin-style-name"><h3 class="item__heading"><a class="item__name" href="#variable-mixin-style-name">mixin-style-name</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$mixin-style-name: &#39;--scss-error&#39; !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>This variable sets the name of the error custom property for the <code>throw()</code> mixin.</p></div><h3 class="item__sub-heading">Type</h3><p><code>String</code></p><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#throw-mixin-throw"><code>throw</code></a></li></ul></section></section></section><section class="main__section"><h1 class="main__heading" id="msg"><div class="container">msg</div></h1><section class="main__sub-section" id="msg-function"><h2 class="main__heading--secondary"><div class="container">functions</div></h2><section class="main__item container item" id="msg-function-value-msg"><h3 class="item__heading"><a class="item__name" href="#function-value-msg">value-msg</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function value-msg($value: null, $expected: null) { 
+<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Sass-door - v0.0.10</title><link rel="stylesheet" href="assets/css/main.css"><link href="https://fonts.googleapis.com/css?family=Open+Sans:400,500,700" rel="stylesheet" type="text/css"><meta name="viewport" content="width=device-width"><meta content="IE=edge, chrome=1" http-equiv="X-UA-Compatible"><!-- Open Graph tags --><meta property="og:title" content="Sass-door - SassDoc"><meta property="og:type" content="website"><meta property="og:description" content="<p>Sass Door 🚪 is a tiny error-handling library.</p>
+"><!-- Thanks to Sass-lang.com for the icons --><link href="assets/images/favicon.png" rel="shortcut icon"></head><body><aside class="sidebar" role="nav"><div class="sidebar__header"><h1 class="sidebar__title">Sass-door - 0.0.10</h1></div><div class="sidebar__body"><button type="button" class="btn-toggle js-btn-toggle" data-alt="Open all">Close all</button><p class="sidebar__item sidebar__item--heading" data-slug="config"><a href="#config">config</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="config-variable"><a href="#config-variable">variables</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="config" data-name="catching-enabled" data-type="variable"><a href="#config-variable-catching-enabled">catching-enabled</a></li><li class="sidebar__item sassdoc__item" data-group="config" data-name="mixin-style-name" data-type="variable"><a href="#config-variable-mixin-style-name">mixin-style-name</a></li></ul></div><p class="sidebar__item sidebar__item--heading" data-slug="msg"><a href="#msg">msg</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="msg-function"><a href="#msg-function">functions</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="msg" data-name="value-msg" data-type="function"><a href="#msg-function-value-msg">value-msg</a></li><li class="sidebar__item sassdoc__item" data-group="msg" data-name="index-msg" data-type="function"><a href="#msg-function-index-msg">index-msg</a></li></ul></div><p class="sidebar__item sidebar__item--heading" data-slug="throw"><a href="#throw">throw</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="throw-function"><a href="#throw-function">functions</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="throw" data-name="throw" data-type="function"><a href="#throw-function-throw">throw</a></li></ul><p class="sidebar__item sidebar__item--sub-heading" data-slug="throw-mixin"><a href="#throw-mixin">mixins</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="throw" data-name="throw" data-type="mixin"><a href="#throw-mixin-throw">throw</a></li></ul></div><p class="sidebar__item sidebar__item--heading" data-slug="type"><a href="#type">type</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="type-css"><a href="#type-css">css</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="type" data-name="// prettier-ignore
+$type-check-schemas: (
+  // Simple
+  any:            (                                 ),
+  number:         ( t-o: &#39;number&#39;                   ),
+  color:          ( t-o: &#39;color&#39;                    ),
+  calculation:    ( t-o: &#39;calculation&#39;              ),
+  bool:           ( t-o: &#39;bool&#39;                     ),
+  function:       ( t-o: &#39;function&#39;                 ),
+  arglist:        ( t-o: &#39;arglist&#39;                  ),
+  string:         ( t-o: &#39;string&#39;                   ),
+  list:           ( t-o: &#39;list&#39;                     ),
+  map:            ( t-o: &#39;map&#39;                      ),
+  // Time
+  ms:             ( t-o: &#39;number&#39;,      u: &#39;ms&#39;     ),
+  s:              ( t-o: &#39;number&#39;,      u: &#39;s&#39;      ),
+  // Angle
+  deg:            ( t-o: &#39;number&#39;,      u: &#39;deg&#39;    ),
+  rad:            ( t-o: &#39;number&#39;,      u: &#39;rad&#39;    ),
+  grad:           ( t-o: &#39;number&#39;,      u: &#39;grad&#39;   ),
+  turn:           ( t-o: &#39;number&#39;,      u: &#39;turn&#39;   ),
+  // Frecuency
+  Hz:             ( t-o: &#39;number&#39;,      u: &#39;Hz&#39;     ),
+  kHz:            ( t-o: &#39;number&#39;,      u: &#39;kHz&#39;    ),
+  // Relative Length
+  em:             ( t-o: &#39;number&#39;,      u: &#39;em&#39;     ),
+  ex:             ( t-o: &#39;number&#39;,      u: &#39;ex&#39;     ),
+  ch:             ( t-o: &#39;number&#39;,      u: &#39;ch&#39;     ),
+  rem:            ( t-o: &#39;number&#39;,      u: &#39;rem&#39;    ),
+  vw:             ( t-o: &#39;number&#39;,      u: &#39;vw&#39;     ),
+  vh:             ( t-o: &#39;number&#39;,      u: &#39;vh&#39;     ),
+  vmin:           ( t-o: &#39;number&#39;,      u: &#39;vmin&#39;   ),
+  vmax:           ( t-o: &#39;number&#39;,      u: &#39;vmax&#39;   ),
+  // Absolute length
+  cm:             ( t-o: &#39;number&#39;,      u: &#39;cm&#39;     ),
+  mm:             ( t-o: &#39;number&#39;,      u: &#39;mm&#39;     ),
+  in:             ( t-o: &#39;number&#39;,      u: &#39;in&#39;     ),
+  px:             ( t-o: &#39;number&#39;,      u: &#39;px&#39;     ),
+  pt:             ( t-o: &#39;number&#39;,      u: &#39;pt&#39;     ),
+  pc:             ( t-o: &#39;number&#39;,      u: &#39;pc&#39;     ),
+  // Percentage
+  pct:            ( t-o: &#39;number&#39;,      u: &#39;%&#39;      ),
+  // Resolution
+  dpi:            ( t-o: &#39;number&#39;,      u: &#39;dpi&#39;    ),
+  dpcm:           ( t-o: &#39;number&#39;,      u: &#39;dpcm&#39;   ),
+  dppx:           ( t-o: &#39;number&#39;,      u: &#39;dppx&#39;   ),
+);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `meta.type-of($v) == $t`
+///
+/// @param" data-type="css"><a href="#type-css-// prettier-ignore
+$type-check-schemas: (
+  // Simple
+  any:            (                                 ),
+  number:         ( t-o: &#39;number&#39;                   ),
+  color:          ( t-o: &#39;color&#39;                    ),
+  calculation:    ( t-o: &#39;calculation&#39;              ),
+  bool:           ( t-o: &#39;bool&#39;                     ),
+  function:       ( t-o: &#39;function&#39;                 ),
+  arglist:        ( t-o: &#39;arglist&#39;                  ),
+  string:         ( t-o: &#39;string&#39;                   ),
+  list:           ( t-o: &#39;list&#39;                     ),
+  map:            ( t-o: &#39;map&#39;                      ),
+  // Time
+  ms:             ( t-o: &#39;number&#39;,      u: &#39;ms&#39;     ),
+  s:              ( t-o: &#39;number&#39;,      u: &#39;s&#39;      ),
+  // Angle
+  deg:            ( t-o: &#39;number&#39;,      u: &#39;deg&#39;    ),
+  rad:            ( t-o: &#39;number&#39;,      u: &#39;rad&#39;    ),
+  grad:           ( t-o: &#39;number&#39;,      u: &#39;grad&#39;   ),
+  turn:           ( t-o: &#39;number&#39;,      u: &#39;turn&#39;   ),
+  // Frecuency
+  Hz:             ( t-o: &#39;number&#39;,      u: &#39;Hz&#39;     ),
+  kHz:            ( t-o: &#39;number&#39;,      u: &#39;kHz&#39;    ),
+  // Relative Length
+  em:             ( t-o: &#39;number&#39;,      u: &#39;em&#39;     ),
+  ex:             ( t-o: &#39;number&#39;,      u: &#39;ex&#39;     ),
+  ch:             ( t-o: &#39;number&#39;,      u: &#39;ch&#39;     ),
+  rem:            ( t-o: &#39;number&#39;,      u: &#39;rem&#39;    ),
+  vw:             ( t-o: &#39;number&#39;,      u: &#39;vw&#39;     ),
+  vh:             ( t-o: &#39;number&#39;,      u: &#39;vh&#39;     ),
+  vmin:           ( t-o: &#39;number&#39;,      u: &#39;vmin&#39;   ),
+  vmax:           ( t-o: &#39;number&#39;,      u: &#39;vmax&#39;   ),
+  // Absolute length
+  cm:             ( t-o: &#39;number&#39;,      u: &#39;cm&#39;     ),
+  mm:             ( t-o: &#39;number&#39;,      u: &#39;mm&#39;     ),
+  in:             ( t-o: &#39;number&#39;,      u: &#39;in&#39;     ),
+  px:             ( t-o: &#39;number&#39;,      u: &#39;px&#39;     ),
+  pt:             ( t-o: &#39;number&#39;,      u: &#39;pt&#39;     ),
+  pc:             ( t-o: &#39;number&#39;,      u: &#39;pc&#39;     ),
+  // Percentage
+  pct:            ( t-o: &#39;number&#39;,      u: &#39;%&#39;      ),
+  // Resolution
+  dpi:            ( t-o: &#39;number&#39;,      u: &#39;dpi&#39;    ),
+  dpcm:           ( t-o: &#39;number&#39;,      u: &#39;dpcm&#39;   ),
+  dppx:           ( t-o: &#39;number&#39;,      u: &#39;dppx&#39;   ),
+);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `meta.type-of($v) == $t`
+///
+/// @param">// prettier-ignore $type-check-schemas: ( // Simple any: ( ), number: ( t-o: &#39;number&#39; ), color: ( t-o: &#39;color&#39; ), calculation: ( t-o: &#39;calculation&#39; ), bool: ( t-o: &#39;bool&#39; ), function: ( t-o: &#39;function&#39; ), arglist: ( t-o: &#39;arglist&#39; ), string: ( t-o: &#39;string&#39; ), list: ( t-o: &#39;list&#39; ), map: ( t-o: &#39;map&#39; ), // Time ms: ( t-o: &#39;number&#39;, u: &#39;ms&#39; ), s: ( t-o: &#39;number&#39;, u: &#39;s&#39; ), // Angle deg: ( t-o: &#39;number&#39;, u: &#39;deg&#39; ), rad: ( t-o: &#39;number&#39;, u: &#39;rad&#39; ), grad: ( t-o: &#39;number&#39;, u: &#39;grad&#39; ), turn: ( t-o: &#39;number&#39;, u: &#39;turn&#39; ), // Frecuency Hz: ( t-o: &#39;number&#39;, u: &#39;Hz&#39; ), kHz: ( t-o: &#39;number&#39;, u: &#39;kHz&#39; ), // Relative Length em: ( t-o: &#39;number&#39;, u: &#39;em&#39; ), ex: ( t-o: &#39;number&#39;, u: &#39;ex&#39; ), ch: ( t-o: &#39;number&#39;, u: &#39;ch&#39; ), rem: ( t-o: &#39;number&#39;, u: &#39;rem&#39; ), vw: ( t-o: &#39;number&#39;, u: &#39;vw&#39; ), vh: ( t-o: &#39;number&#39;, u: &#39;vh&#39; ), vmin: ( t-o: &#39;number&#39;, u: &#39;vmin&#39; ), vmax: ( t-o: &#39;number&#39;, u: &#39;vmax&#39; ), // Absolute length cm: ( t-o: &#39;number&#39;, u: &#39;cm&#39; ), mm: ( t-o: &#39;number&#39;, u: &#39;mm&#39; ), in: ( t-o: &#39;number&#39;, u: &#39;in&#39; ), px: ( t-o: &#39;number&#39;, u: &#39;px&#39; ), pt: ( t-o: &#39;number&#39;, u: &#39;pt&#39; ), pc: ( t-o: &#39;number&#39;, u: &#39;pc&#39; ), // Percentage pct: ( t-o: &#39;number&#39;, u: &#39;%&#39; ), // Resolution dpi: ( t-o: &#39;number&#39;, u: &#39;dpi&#39; ), dpcm: ( t-o: &#39;number&#39;, u: &#39;dpcm&#39; ), dppx: ( t-o: &#39;number&#39;, u: &#39;dppx&#39; ), ); // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - /// Short for `meta.type-of($v) == $t` /// /// @param</a></li></ul><p class="sidebar__item sidebar__item--sub-heading" data-slug="type-function"><a href="#type-function">functions</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="type" data-name="u" data-type="function"><a href="#type-function-u">u</a></li><li class="sidebar__item sassdoc__item" data-group="type" data-name="c" data-type="function"><a href="#type-function-c">c</a></li><li class="sidebar__item sassdoc__item" data-group="type" data-name="passes-type-check" data-type="function"><a href="#type-function-passes-type-check">passes-type-check</a></li><li class="sidebar__item sassdoc__item" data-group="type" data-name="passes-optional-list-type-check" data-type="function"><a href="#type-function-passes-optional-list-type-check">passes-optional-list-type-check</a></li><li class="sidebar__item sassdoc__item" data-group="type" data-name="type-check" data-type="function"><a href="#type-function-type-check">type-check</a></li></ul></div><p class="sidebar__item sidebar__item--heading" data-slug="undefined"><a href="#undefined">General</a></p><div><p class="sidebar__item sidebar__item--sub-heading" data-slug="undefined-function"><a href="#undefined-function">functions</a></p><ul class="list-unstyled"><li class="sidebar__item sassdoc__item" data-group="undefined" data-name="t-o" data-type="function"><a href="#undefined-function-t-o">t-o</a></li></ul></div></div></aside><article class="main" role="main"><header class="header" role="banner"><div class="container"><div class="sassdoc__searchbar searchbar"><label for="js-search-input" class="visually-hidden">Search</label><div class="searchbar__form" id="js-search"><input name="search" type="search" class="searchbar__field" autocomplete="off" autofocus id="js-search-input" placeholder="Search"><ul class="searchbar__suggestions" id="js-search-suggestions"></ul></div></div></div></header><section class="main__section"><h1 class="main__heading" id="config"><div class="container">config</div></h1><section class="main__sub-section" id="config-variable"><h2 class="main__heading--secondary"><div class="container">variables</div></h2><section class="main__item container item" id="config-variable-catching-enabled"><h3 class="item__heading"><a class="item__name" href="#variable-catching-enabled">catching-enabled</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$catching-enabled: true !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>This variable sets the default value for whether error messages should be caught and displayed. It can be overritten to false to disable this feature.</p></div><h3 class="item__sub-heading">Type</h3><p><code>Bool</code></p></section><section class="main__item container item" id="config-variable-mixin-style-name"><h3 class="item__heading"><a class="item__name" href="#variable-mixin-style-name">mixin-style-name</a></h3><div class="item__code-wrapper"><pre class="item__code language-scss"><code>$mixin-style-name: &#39;--scss-error&#39; !default;</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>This variable sets the name of the error custom property for the <code>throw()</code> mixin.</p></div><h3 class="item__sub-heading">Type</h3><p><code>String</code></p><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#throw-mixin-throw"><code>throw</code></a></li></ul></section></section></section><section class="main__section"><h1 class="main__heading" id="msg"><div class="container">msg</div></h1><section class="main__sub-section" id="msg-function"><h2 class="main__heading--secondary"><div class="container">functions</div></h2><section class="main__item container item" id="msg-function-value-msg"><h3 class="item__heading"><a class="item__name" href="#function-value-msg">value-msg</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function value-msg($value: null, $expected: null) { 
   @return &#39;(Value Error) The value #{$value} is invalid. Expected: #{$expected}&#39;;
  }" data-collapsed="@function value-msg($value: null, $expected: null) { ... }"><code>@function value-msg($value: null, $expected: null) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Creates a <code>(Value Error)</code>, these are used for incorrect values (e.g. incorrect types, values out of a range, not null, a string with a wrong format, etc).</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$value</code></th><td data-label="desc"><p>The incorrect value.</p></td><td data-label="type"><code>String</code></td><td data-label="default"><code>null</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$expected</code></th><td data-label="desc"><p>A guide on what the correct value must be.</p></td><td data-label="type"><code>String</code></td><td data-label="default"><code>null</code></td></tr></tbody></table></section><section class="main__item container item" id="msg-function-index-msg"><h3 class="item__heading"><a class="item__name" href="#function-index-msg">index-msg</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function index-msg($key: null, $container: null) { 
   @return &#39;(Indexing Error) The value #{$key} was not found inside #{$container}&#39;;
@@ -10,4 +112,305 @@
   @return $message;
  }" data-collapsed="@function throw($message: &#39;&#39;, $catch: $catching-enabled) { ... }"><code>@function throw($message: &#39;&#39;, $catch: $catching-enabled) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Simplifies error handling by generating a custom error message and throwing an exception.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$message</code></th><td data-label="desc"><p>The content of the message to be displayed.</p></td><td data-label="type"><code>String</code></td><td data-label="default"><code>&#39;&#39;</code></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$catch</code></th><td data-label="desc"><p>Throws @error if true.</p></td><td data-label="type"><code>Bool</code></td><td data-label="default"><code>$catching-enabled</code></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>String</code> &mdash;<p>Returns the <code>$message</code> by default.</p></div><h3 class="item__sub-heading">Throws</h3><ul class="list-unstyled"><li><p>The global throw, this is what every exception will use to handle an error.</p></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[mixin]</span> <a href="#throw-mixin-throw"><code>throw</code></a></li></ul></section></section><section class="main__sub-section" id="throw-mixin"><h2 class="main__heading--secondary"><div class="container">mixins</div></h2><section class="main__item container item" id="throw-mixin-throw"><h3 class="item__heading"><a class="item__name" href="#mixin-throw">throw</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@mixin throw($message, $catch: $catching-enabled) { 
   #{$mixin-style-name}: &#39;#{throw($message, $catch)}&#39;;
- }" data-collapsed="@mixin throw($message, $catch: $catching-enabled) { ... }"><code>@mixin throw($message, $catch: $catching-enabled) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>This mixin does what the function <code>throw()</code> does, but applied to a <code>--scss-error</code> property.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$message</code></th><td data-label="desc"><p>The content of the message to be displayed.</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$catch</code></th><td data-label="desc"><p>Throws @error if true.</p></td><td data-label="type"><code>Bool</code></td><td data-label="default"><code>$catching-enabled</code></td></tr></tbody></table><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#throw-function-throw"><code>throw</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#config-variable-mixin-style-name"><code>mixin-style-name</code></a></li></ul></section></section></section><footer class="footer" role="contentinfo"><div class="container"><div class="footer__project-info project-info"><!-- Name and URL --> <span class="project-info__name">Sass-door</span><!-- Version --> <span class="project-info__version">- v0.0.7</span><!-- License --> <span class="project-info__license">, under MIT</span></div><a class="footer__watermark" href="http://sassdoc.com"><img src="assets/images/logo_light_inline.svg" alt="SassDoc Logo"></a></div></footer></article><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script><script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script><script src="assets/js/main.min.js"></script></body></html>
+ }" data-collapsed="@mixin throw($message, $catch: $catching-enabled) { ... }"><code>@mixin throw($message, $catch: $catching-enabled) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>This mixin does what the function <code>throw()</code> does, but applied to a <code>--scss-error</code> property.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$message</code></th><td data-label="desc"><p>The content of the message to be displayed.</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$catch</code></th><td data-label="desc"><p>Throws @error if true.</p></td><td data-label="type"><code>Bool</code></td><td data-label="default"><code>$catching-enabled</code></td></tr></tbody></table><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#throw-function-throw"><code>throw</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[variable]</span> <a href="#config-variable-mixin-style-name"><code>mixin-style-name</code></a></li></ul></section></section></section><section class="main__section"><h1 class="main__heading" id="type"><div class="container">type</div></h1><section class="main__sub-section" id="type-css"><h2 class="main__heading--secondary"><div class="container">css</div></h2><section class="main__item container item" id="type-css-// prettier-ignore
+$type-check-schemas: (
+  // Simple
+  any:            (                                 ),
+  number:         ( t-o: &#39;number&#39;                   ),
+  color:          ( t-o: &#39;color&#39;                    ),
+  calculation:    ( t-o: &#39;calculation&#39;              ),
+  bool:           ( t-o: &#39;bool&#39;                     ),
+  function:       ( t-o: &#39;function&#39;                 ),
+  arglist:        ( t-o: &#39;arglist&#39;                  ),
+  string:         ( t-o: &#39;string&#39;                   ),
+  list:           ( t-o: &#39;list&#39;                     ),
+  map:            ( t-o: &#39;map&#39;                      ),
+  // Time
+  ms:             ( t-o: &#39;number&#39;,      u: &#39;ms&#39;     ),
+  s:              ( t-o: &#39;number&#39;,      u: &#39;s&#39;      ),
+  // Angle
+  deg:            ( t-o: &#39;number&#39;,      u: &#39;deg&#39;    ),
+  rad:            ( t-o: &#39;number&#39;,      u: &#39;rad&#39;    ),
+  grad:           ( t-o: &#39;number&#39;,      u: &#39;grad&#39;   ),
+  turn:           ( t-o: &#39;number&#39;,      u: &#39;turn&#39;   ),
+  // Frecuency
+  Hz:             ( t-o: &#39;number&#39;,      u: &#39;Hz&#39;     ),
+  kHz:            ( t-o: &#39;number&#39;,      u: &#39;kHz&#39;    ),
+  // Relative Length
+  em:             ( t-o: &#39;number&#39;,      u: &#39;em&#39;     ),
+  ex:             ( t-o: &#39;number&#39;,      u: &#39;ex&#39;     ),
+  ch:             ( t-o: &#39;number&#39;,      u: &#39;ch&#39;     ),
+  rem:            ( t-o: &#39;number&#39;,      u: &#39;rem&#39;    ),
+  vw:             ( t-o: &#39;number&#39;,      u: &#39;vw&#39;     ),
+  vh:             ( t-o: &#39;number&#39;,      u: &#39;vh&#39;     ),
+  vmin:           ( t-o: &#39;number&#39;,      u: &#39;vmin&#39;   ),
+  vmax:           ( t-o: &#39;number&#39;,      u: &#39;vmax&#39;   ),
+  // Absolute length
+  cm:             ( t-o: &#39;number&#39;,      u: &#39;cm&#39;     ),
+  mm:             ( t-o: &#39;number&#39;,      u: &#39;mm&#39;     ),
+  in:             ( t-o: &#39;number&#39;,      u: &#39;in&#39;     ),
+  px:             ( t-o: &#39;number&#39;,      u: &#39;px&#39;     ),
+  pt:             ( t-o: &#39;number&#39;,      u: &#39;pt&#39;     ),
+  pc:             ( t-o: &#39;number&#39;,      u: &#39;pc&#39;     ),
+  // Percentage
+  pct:            ( t-o: &#39;number&#39;,      u: &#39;%&#39;      ),
+  // Resolution
+  dpi:            ( t-o: &#39;number&#39;,      u: &#39;dpi&#39;    ),
+  dpcm:           ( t-o: &#39;number&#39;,      u: &#39;dpcm&#39;   ),
+  dppx:           ( t-o: &#39;number&#39;,      u: &#39;dppx&#39;   ),
+);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `meta.type-of($v) == $t`
+///
+/// @param"><h3 class="item__heading"><a class="item__name" href="#css-// prettier-ignore
+$type-check-schemas: (
+  // Simple
+  any:            (                                 ),
+  number:         ( t-o: &#39;number&#39;                   ),
+  color:          ( t-o: &#39;color&#39;                    ),
+  calculation:    ( t-o: &#39;calculation&#39;              ),
+  bool:           ( t-o: &#39;bool&#39;                     ),
+  function:       ( t-o: &#39;function&#39;                 ),
+  arglist:        ( t-o: &#39;arglist&#39;                  ),
+  string:         ( t-o: &#39;string&#39;                   ),
+  list:           ( t-o: &#39;list&#39;                     ),
+  map:            ( t-o: &#39;map&#39;                      ),
+  // Time
+  ms:             ( t-o: &#39;number&#39;,      u: &#39;ms&#39;     ),
+  s:              ( t-o: &#39;number&#39;,      u: &#39;s&#39;      ),
+  // Angle
+  deg:            ( t-o: &#39;number&#39;,      u: &#39;deg&#39;    ),
+  rad:            ( t-o: &#39;number&#39;,      u: &#39;rad&#39;    ),
+  grad:           ( t-o: &#39;number&#39;,      u: &#39;grad&#39;   ),
+  turn:           ( t-o: &#39;number&#39;,      u: &#39;turn&#39;   ),
+  // Frecuency
+  Hz:             ( t-o: &#39;number&#39;,      u: &#39;Hz&#39;     ),
+  kHz:            ( t-o: &#39;number&#39;,      u: &#39;kHz&#39;    ),
+  // Relative Length
+  em:             ( t-o: &#39;number&#39;,      u: &#39;em&#39;     ),
+  ex:             ( t-o: &#39;number&#39;,      u: &#39;ex&#39;     ),
+  ch:             ( t-o: &#39;number&#39;,      u: &#39;ch&#39;     ),
+  rem:            ( t-o: &#39;number&#39;,      u: &#39;rem&#39;    ),
+  vw:             ( t-o: &#39;number&#39;,      u: &#39;vw&#39;     ),
+  vh:             ( t-o: &#39;number&#39;,      u: &#39;vh&#39;     ),
+  vmin:           ( t-o: &#39;number&#39;,      u: &#39;vmin&#39;   ),
+  vmax:           ( t-o: &#39;number&#39;,      u: &#39;vmax&#39;   ),
+  // Absolute length
+  cm:             ( t-o: &#39;number&#39;,      u: &#39;cm&#39;     ),
+  mm:             ( t-o: &#39;number&#39;,      u: &#39;mm&#39;     ),
+  in:             ( t-o: &#39;number&#39;,      u: &#39;in&#39;     ),
+  px:             ( t-o: &#39;number&#39;,      u: &#39;px&#39;     ),
+  pt:             ( t-o: &#39;number&#39;,      u: &#39;pt&#39;     ),
+  pc:             ( t-o: &#39;number&#39;,      u: &#39;pc&#39;     ),
+  // Percentage
+  pct:            ( t-o: &#39;number&#39;,      u: &#39;%&#39;      ),
+  // Resolution
+  dpi:            ( t-o: &#39;number&#39;,      u: &#39;dpi&#39;    ),
+  dpcm:           ( t-o: &#39;number&#39;,      u: &#39;dpcm&#39;   ),
+  dppx:           ( t-o: &#39;number&#39;,      u: &#39;dppx&#39;   ),
+);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `meta.type-of($v) == $t`
+///
+/// @param">// prettier-ignore $type-check-schemas: ( // Simple any: ( ), number: ( t-o: &#39;number&#39; ), color: ( t-o: &#39;color&#39; ), calculation: ( t-o: &#39;calculation&#39; ), bool: ( t-o: &#39;bool&#39; ), function: ( t-o: &#39;function&#39; ), arglist: ( t-o: &#39;arglist&#39; ), string: ( t-o: &#39;string&#39; ), list: ( t-o: &#39;list&#39; ), map: ( t-o: &#39;map&#39; ), // Time ms: ( t-o: &#39;number&#39;, u: &#39;ms&#39; ), s: ( t-o: &#39;number&#39;, u: &#39;s&#39; ), // Angle deg: ( t-o: &#39;number&#39;, u: &#39;deg&#39; ), rad: ( t-o: &#39;number&#39;, u: &#39;rad&#39; ), grad: ( t-o: &#39;number&#39;, u: &#39;grad&#39; ), turn: ( t-o: &#39;number&#39;, u: &#39;turn&#39; ), // Frecuency Hz: ( t-o: &#39;number&#39;, u: &#39;Hz&#39; ), kHz: ( t-o: &#39;number&#39;, u: &#39;kHz&#39; ), // Relative Length em: ( t-o: &#39;number&#39;, u: &#39;em&#39; ), ex: ( t-o: &#39;number&#39;, u: &#39;ex&#39; ), ch: ( t-o: &#39;number&#39;, u: &#39;ch&#39; ), rem: ( t-o: &#39;number&#39;, u: &#39;rem&#39; ), vw: ( t-o: &#39;number&#39;, u: &#39;vw&#39; ), vh: ( t-o: &#39;number&#39;, u: &#39;vh&#39; ), vmin: ( t-o: &#39;number&#39;, u: &#39;vmin&#39; ), vmax: ( t-o: &#39;number&#39;, u: &#39;vmax&#39; ), // Absolute length cm: ( t-o: &#39;number&#39;, u: &#39;cm&#39; ), mm: ( t-o: &#39;number&#39;, u: &#39;mm&#39; ), in: ( t-o: &#39;number&#39;, u: &#39;in&#39; ), px: ( t-o: &#39;number&#39;, u: &#39;px&#39; ), pt: ( t-o: &#39;number&#39;, u: &#39;pt&#39; ), pc: ( t-o: &#39;number&#39;, u: &#39;pc&#39; ), // Percentage pct: ( t-o: &#39;number&#39;, u: &#39;%&#39; ), // Resolution dpi: ( t-o: &#39;number&#39;, u: &#39;dpi&#39; ), dpcm: ( t-o: &#39;number&#39;, u: &#39;dpcm&#39; ), dppx: ( t-o: &#39;number&#39;, u: &#39;dppx&#39; ), ); // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - /// Short for `meta.type-of($v) == $t` /// /// @param</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="<code>// prettier-ignore
+$type-check-schemas: (
+  // Simple
+  any:            (                                 ),
+  number:         ( t-o: &#39;number&#39;                   ),
+  color:          ( t-o: &#39;color&#39;                    ),
+  calculation:    ( t-o: &#39;calculation&#39;              ),
+  bool:           ( t-o: &#39;bool&#39;                     ),
+  function:       ( t-o: &#39;function&#39;                 ),
+  arglist:        ( t-o: &#39;arglist&#39;                  ),
+  string:         ( t-o: &#39;string&#39;                   ),
+  list:           ( t-o: &#39;list&#39;                     ),
+  map:            ( t-o: &#39;map&#39;                      ),
+  // Time
+  ms:             ( t-o: &#39;number&#39;,      u: &#39;ms&#39;     ),
+  s:              ( t-o: &#39;number&#39;,      u: &#39;s&#39;      ),
+  // Angle
+  deg:            ( t-o: &#39;number&#39;,      u: &#39;deg&#39;    ),
+  rad:            ( t-o: &#39;number&#39;,      u: &#39;rad&#39;    ),
+  grad:           ( t-o: &#39;number&#39;,      u: &#39;grad&#39;   ),
+  turn:           ( t-o: &#39;number&#39;,      u: &#39;turn&#39;   ),
+  // Frecuency
+  Hz:             ( t-o: &#39;number&#39;,      u: &#39;Hz&#39;     ),
+  kHz:            ( t-o: &#39;number&#39;,      u: &#39;kHz&#39;    ),
+  // Relative Length
+  em:             ( t-o: &#39;number&#39;,      u: &#39;em&#39;     ),
+  ex:             ( t-o: &#39;number&#39;,      u: &#39;ex&#39;     ),
+  ch:             ( t-o: &#39;number&#39;,      u: &#39;ch&#39;     ),
+  rem:            ( t-o: &#39;number&#39;,      u: &#39;rem&#39;    ),
+  vw:             ( t-o: &#39;number&#39;,      u: &#39;vw&#39;     ),
+  vh:             ( t-o: &#39;number&#39;,      u: &#39;vh&#39;     ),
+  vmin:           ( t-o: &#39;number&#39;,      u: &#39;vmin&#39;   ),
+  vmax:           ( t-o: &#39;number&#39;,      u: &#39;vmax&#39;   ),
+  // Absolute length
+  cm:             ( t-o: &#39;number&#39;,      u: &#39;cm&#39;     ),
+  mm:             ( t-o: &#39;number&#39;,      u: &#39;mm&#39;     ),
+  in:             ( t-o: &#39;number&#39;,      u: &#39;in&#39;     ),
+  px:             ( t-o: &#39;number&#39;,      u: &#39;px&#39;     ),
+  pt:             ( t-o: &#39;number&#39;,      u: &#39;pt&#39;     ),
+  pc:             ( t-o: &#39;number&#39;,      u: &#39;pc&#39;     ),
+  // Percentage
+  pct:            ( t-o: &#39;number&#39;,      u: &#39;%&#39;      ),
+  // Resolution
+  dpi:            ( t-o: &#39;number&#39;,      u: &#39;dpi&#39;    ),
+  dpcm:           ( t-o: &#39;number&#39;,      u: &#39;dpcm&#39;   ),
+  dppx:           ( t-o: &#39;number&#39;,      u: &#39;dppx&#39;   ),
+);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `meta.type-of($v) == $t`
+///
+/// @param {
+  any
+}</code>" data-collapsed="// prettier-ignore
+$type-check-schemas: (
+  // Simple
+  any:            (                                 ),
+  number:         ( t-o: &#39;number&#39;                   ),
+  color:          ( t-o: &#39;color&#39;                    ),
+  calculation:    ( t-o: &#39;calculation&#39;              ),
+  bool:           ( t-o: &#39;bool&#39;                     ),
+  function:       ( t-o: &#39;function&#39;                 ),
+  arglist:        ( t-o: &#39;arglist&#39;                  ),
+  string:         ( t-o: &#39;string&#39;                   ),
+  list:           ( t-o: &#39;list&#39;                     ),
+  map:            ( t-o: &#39;map&#39;                      ),
+  // Time
+  ms:             ( t-o: &#39;number&#39;,      u: &#39;ms&#39;     ),
+  s:              ( t-o: &#39;number&#39;,      u: &#39;s&#39;      ),
+  // Angle
+  deg:            ( t-o: &#39;number&#39;,      u: &#39;deg&#39;    ),
+  rad:            ( t-o: &#39;number&#39;,      u: &#39;rad&#39;    ),
+  grad:           ( t-o: &#39;number&#39;,      u: &#39;grad&#39;   ),
+  turn:           ( t-o: &#39;number&#39;,      u: &#39;turn&#39;   ),
+  // Frecuency
+  Hz:             ( t-o: &#39;number&#39;,      u: &#39;Hz&#39;     ),
+  kHz:            ( t-o: &#39;number&#39;,      u: &#39;kHz&#39;    ),
+  // Relative Length
+  em:             ( t-o: &#39;number&#39;,      u: &#39;em&#39;     ),
+  ex:             ( t-o: &#39;number&#39;,      u: &#39;ex&#39;     ),
+  ch:             ( t-o: &#39;number&#39;,      u: &#39;ch&#39;     ),
+  rem:            ( t-o: &#39;number&#39;,      u: &#39;rem&#39;    ),
+  vw:             ( t-o: &#39;number&#39;,      u: &#39;vw&#39;     ),
+  vh:             ( t-o: &#39;number&#39;,      u: &#39;vh&#39;     ),
+  vmin:           ( t-o: &#39;number&#39;,      u: &#39;vmin&#39;   ),
+  vmax:           ( t-o: &#39;number&#39;,      u: &#39;vmax&#39;   ),
+  // Absolute length
+  cm:             ( t-o: &#39;number&#39;,      u: &#39;cm&#39;     ),
+  mm:             ( t-o: &#39;number&#39;,      u: &#39;mm&#39;     ),
+  in:             ( t-o: &#39;number&#39;,      u: &#39;in&#39;     ),
+  px:             ( t-o: &#39;number&#39;,      u: &#39;px&#39;     ),
+  pt:             ( t-o: &#39;number&#39;,      u: &#39;pt&#39;     ),
+  pc:             ( t-o: &#39;number&#39;,      u: &#39;pc&#39;     ),
+  // Percentage
+  pct:            ( t-o: &#39;number&#39;,      u: &#39;%&#39;      ),
+  // Resolution
+  dpi:            ( t-o: &#39;number&#39;,      u: &#39;dpi&#39;    ),
+  dpcm:           ( t-o: &#39;number&#39;,      u: &#39;dpcm&#39;   ),
+  dppx:           ( t-o: &#39;number&#39;,      u: &#39;dppx&#39;   ),
+);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `meta.type-of($v) == $t`
+///
+/// @param { ... }"><code>// prettier-ignore
+$type-check-schemas: (
+  // Simple
+  any:            (                                 ),
+  number:         ( t-o: &#39;number&#39;                   ),
+  color:          ( t-o: &#39;color&#39;                    ),
+  calculation:    ( t-o: &#39;calculation&#39;              ),
+  bool:           ( t-o: &#39;bool&#39;                     ),
+  function:       ( t-o: &#39;function&#39;                 ),
+  arglist:        ( t-o: &#39;arglist&#39;                  ),
+  string:         ( t-o: &#39;string&#39;                   ),
+  list:           ( t-o: &#39;list&#39;                     ),
+  map:            ( t-o: &#39;map&#39;                      ),
+  // Time
+  ms:             ( t-o: &#39;number&#39;,      u: &#39;ms&#39;     ),
+  s:              ( t-o: &#39;number&#39;,      u: &#39;s&#39;      ),
+  // Angle
+  deg:            ( t-o: &#39;number&#39;,      u: &#39;deg&#39;    ),
+  rad:            ( t-o: &#39;number&#39;,      u: &#39;rad&#39;    ),
+  grad:           ( t-o: &#39;number&#39;,      u: &#39;grad&#39;   ),
+  turn:           ( t-o: &#39;number&#39;,      u: &#39;turn&#39;   ),
+  // Frecuency
+  Hz:             ( t-o: &#39;number&#39;,      u: &#39;Hz&#39;     ),
+  kHz:            ( t-o: &#39;number&#39;,      u: &#39;kHz&#39;    ),
+  // Relative Length
+  em:             ( t-o: &#39;number&#39;,      u: &#39;em&#39;     ),
+  ex:             ( t-o: &#39;number&#39;,      u: &#39;ex&#39;     ),
+  ch:             ( t-o: &#39;number&#39;,      u: &#39;ch&#39;     ),
+  rem:            ( t-o: &#39;number&#39;,      u: &#39;rem&#39;    ),
+  vw:             ( t-o: &#39;number&#39;,      u: &#39;vw&#39;     ),
+  vh:             ( t-o: &#39;number&#39;,      u: &#39;vh&#39;     ),
+  vmin:           ( t-o: &#39;number&#39;,      u: &#39;vmin&#39;   ),
+  vmax:           ( t-o: &#39;number&#39;,      u: &#39;vmax&#39;   ),
+  // Absolute length
+  cm:             ( t-o: &#39;number&#39;,      u: &#39;cm&#39;     ),
+  mm:             ( t-o: &#39;number&#39;,      u: &#39;mm&#39;     ),
+  in:             ( t-o: &#39;number&#39;,      u: &#39;in&#39;     ),
+  px:             ( t-o: &#39;number&#39;,      u: &#39;px&#39;     ),
+  pt:             ( t-o: &#39;number&#39;,      u: &#39;pt&#39;     ),
+  pc:             ( t-o: &#39;number&#39;,      u: &#39;pc&#39;     ),
+  // Percentage
+  pct:            ( t-o: &#39;number&#39;,      u: &#39;%&#39;      ),
+  // Resolution
+  dpi:            ( t-o: &#39;number&#39;,      u: &#39;dpi&#39;    ),
+  dpcm:           ( t-o: &#39;number&#39;,      u: &#39;dpcm&#39;   ),
+  dppx:           ( t-o: &#39;number&#39;,      u: &#39;dppx&#39;   ),
+);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `meta.type-of($v) == $t`
+///
+/// @param { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>This schema contains all the supported SCSS data types. There are two types of verifications:</p><ul><li>t-o: meta.type-of()</li><li>u: unit()</li></ul></div></section></section><section class="main__sub-section" id="type-function"><h2 class="main__heading--secondary"><div class="container">functions</div></h2><section class="main__item container item" id="type-function-u"><h3 class="item__heading"><a class="item__name" href="#function-u">u</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function u($v, $t) { 
+  @return unit($v) == $u;
+ }" data-collapsed="@function u($v, $t) { ... }"><code>@function u($v, $t) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Short for <code>unit($v) == $v</code></p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$v</code></th><td data-label="desc"><p>The value whose unit of measurement is to be compared.</p></td><td data-label="type"><code>Any</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$t</code></th><td data-label="desc"><p>The expected type for the value.</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>Bool</code> &mdash;<p>A bool for a unit of measurement match confirmation.</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[function]</span> <a href="#type-function-passes-type-check"><code>passes-type-check</code></a></li></ul></section><section class="main__item container item" id="type-function-c"><h3 class="item__heading"><a class="item__name" href="#function-c">c</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function c($f, $p...) { 
+  @return meta.call($f, $p...);
+ }" data-collapsed="@function c($f, $p...) { ... }"><code>@function c($f, $p...) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Short for `meta.call($f, $p...);</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$f</code></th><td data-label="desc"><p>The function to be called</p></td><td data-label="type"><code>Function</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$p</code></th><td data-label="desc"><p>The list of parameters to be passed to the function.</p></td><td data-label="type"><code>Arglist</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>Any</code> &mdash;<p>The returned value from calling $f.</p></div></section><section class="main__item container item" id="type-function-passes-type-check"><h3 class="item__heading"><a class="item__name" href="#function-passes-type-check">passes-type-check</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function passes-type-check($value, $i-value) { 
+  @if not map-has-key($type-check-schemas, $i-value) {
+    @if $value == null and ($i-value == &#39;null&#39; or $i-value == null) {
+      @return true;
+    }
+    @return $value == $i-value;
+  } @else {
+    $type-check-schema: map-get($type-check-schemas, $i-value);
+    $typeof: map-get($type-check-schema, &#39;t-o&#39;);
+    $unit: map-get($type-check-schema, &#39;u&#39;);
+
+    @if $typeof != null and not t-o($value, $typeof) {
+      @return false;
+    }
+    @if $unit != null and not u($value, $unit) {
+      @return false;
+    }
+  }
+  @return true;
+ }" data-collapsed="@function passes-type-check($value, $i-value) { ... }"><code>@function passes-type-check($value, $i-value) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>This function varifies the individual type of a value and compares it to the interfaced type.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$value</code></th><td data-label="desc"><p>The value that will be type verified.</p></td><td data-label="type"><code>Any</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$i-value</code></th><td data-label="desc"><p>The type of the value from the interface.</p></td><td data-label="type"><code>Any</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>Bool</code> &mdash;<p>True if the value passes the check, false if it doesn&#39;t.</p></div><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#undefined-function-t-o"><code>t-o</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#type-function-u"><code>u</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[function]</span> <a href="#type-function-passes-optional-list-type-check"><code>passes-optional-list-type-check</code></a></li><li><span class="item__cross-type">[function]</span> <a href="#type-function-type-check"><code>type-check</code></a></li></ul></section><section class="main__item container item" id="type-function-passes-optional-list-type-check"><h3 class="item__heading"><a class="item__name" href="#function-passes-optional-list-type-check">passes-optional-list-type-check</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function passes-optional-list-type-check($value, $i-value) { 
+  @each $type in $i-value {
+    $match: false;
+    @if passes-type-check($value, $type) {
+      $match: true;
+    }
+    @return $match;
+  }
+ }" data-collapsed="@function passes-optional-list-type-check($value, $i-value) { ... }"><code>@function passes-optional-list-type-check($value, $i-value) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>This function verifies the type of a value and looks for a match on a list of posible types.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$value</code></th><td data-label="desc"><p>The value that will be type verified.</p></td><td data-label="type"><code>Any</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$i-value</code></th><td data-label="desc"><p>The list of possible types for the value.</p></td><td data-label="type"><code>List</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>Bool</code> &mdash;<p>True if the value passes the check, false if it doesn&#39;t.</p></div><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#type-function-passes-type-check"><code>passes-type-check</code></a></li></ul><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[function]</span> <a href="#type-function-type-check"><code>type-check</code></a></li></ul></section><section class="main__item container item" id="type-function-type-check"><h3 class="item__heading"><a class="item__name" href="#function-type-check">type-check</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function type-check($schema, $interface) { 
+  @each $key, $value in $schema {
+    $i-value: map-get($interface, $key);
+    @if (t-o($i-value, &#39;string&#39;) and not passes-type-check($value, $i-value)) or
+      (t-o($i-value, &#39;list&#39;) and not passes-optional-list-type-check($value, $i-value)) or
+      (t-o($i-value, &#39;map&#39;) and not type-check($value, $i-value))
+    {
+      @return false;
+    }
+  }
+  @return true;
+ }" data-collapsed="@function type-check($schema, $interface) { ... }"><code>@function type-check($schema, $interface) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>This function verifies the types of the values inside a map. All the keys must match as well.</p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$schema</code></th><td data-label="desc"><p>This map contains the values planned in the <code>$interface</code> map.</p></td><td data-label="type"><code>Map</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$interface</code></th><td data-label="desc"><p>This map contains the type planning of the map <code>$schema</code>.</p></td><td data-label="type"><code>Map</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>Bool</code> &mdash;<p>True if the schema perfectly matches the interface, false if it doesn&#39;t.</p></div><h3 class="item__sub-heading">Requires</h3><ul class="list-unstyled"><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#undefined-function-t-o"><code>t-o</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#type-function-passes-type-check"><code>passes-type-check</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#undefined-function-t-o"><code>t-o</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#type-function-passes-optional-list-type-check"><code>passes-optional-list-type-check</code></a></li><li class="item__description item__description--inline"><span class="item__cross-type">[function]</span> <a href="#undefined-function-t-o"><code>t-o</code></a></li></ul></section></section></section><section class="main__section"><h1 class="main__heading" id="undefined"><div class="container">General</div></h1><section class="main__sub-section" id="undefined-function"><h2 class="main__heading--secondary"><div class="container">functions</div></h2><section class="main__item container item" id="undefined-function-t-o"><h3 class="item__heading"><a class="item__name" href="#function-t-o">t-o</a></h3><div class="item__code-wrapper"><pre class="item__code item__code--togglable language-scss" data-current-state="collapsed" data-expanded="@function t-o($v, $t) { 
+  @return meta.type-of($v) == $t;
+ }" data-collapsed="@function t-o($v, $t) { ... }"><code>@function t-o($v, $t) { ... }</code></pre></div><h3 class="item__sub-heading">Description</h3><div class="item__description"><p>Short for <code>meta.type-of($v) == $t</code></p></div><h3 class="item__sub-heading">Parameters</h3><table class="item__parameters"><thead><tr><th scope="col"><span class="visually-hidden">parameter </span>Name</th><th scope="col"><span class="visually-hidden">parameter </span>Description</th><th scope="col"><span class="visually-hidden">parameter </span>Type</th><th scope="col"><span class="visually-hidden">parameter </span>Default value</th></tr></thead><tbody><tr class="item__parameter"><th scope="row" data-label="name"><code>$v</code></th><td data-label="desc"><p>The value whose type is to be compared.</p></td><td data-label="type"><code>Any</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr><tr class="item__parameter"><th scope="row" data-label="name"><code>$t</code></th><td data-label="desc"><p>The expected type for the value.</p></td><td data-label="type"><code>String</code></td><td data-label="default">&mdash;<span class="visually-hidden"> none</span></td></tr></tbody></table><h3 class="item__sub-heading">Returns</h3><div class="item__description item__description--inline"><code>Bool</code> &mdash;<p>A bool for a type match confirmation.</p></div><h3 class="item__sub-heading">Used by</h3><ul class="list-unstyled"><li><span class="item__cross-type">[function]</span> <a href="#type-function-passes-type-check"><code>passes-type-check</code></a></li><li><span class="item__cross-type">[function]</span> <a href="#type-function-type-check"><code>type-check</code></a></li><li><span class="item__cross-type">[function]</span> <a href="#type-function-type-check"><code>type-check</code></a></li><li><span class="item__cross-type">[function]</span> <a href="#type-function-type-check"><code>type-check</code></a></li></ul></section></section></section><footer class="footer" role="contentinfo"><div class="container"><div class="footer__project-info project-info"><!-- Name and URL --> <span class="project-info__name">Sass-door</span><!-- Version --> <span class="project-info__version">- v0.0.10</span><!-- License --> <span class="project-info__license">, under MIT</span></div><a class="footer__watermark" href="http://sassdoc.com"><img src="assets/images/logo_light_inline.svg" alt="SassDoc Logo"></a></div></footer></article><script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script><script>window.jQuery || document.write('<script src="assets/js/vendor/jquery.min.js"><\/script>')</script><script src="assets/js/main.min.js"></script></body></html>
