@@ -356,12 +356,10 @@ $type-check-schemas: (
 /// @return {bool} True if the value passes the check, false if it doesn't.
 ///
 /// @throw
-///   This is the only function that throws for type validation, this is because this is the base of
-///   type validation, every other type validation function uses this one.
 ///
 /// @group type
 ///
-@function check-individual-type($value, $i-value) {
+@function check-individual-type($value, $i-value, $quiet: false) {
   @if not map-has-key($type-check-schemas, $i-value) {
     @if $value == null and ($i-value == 'null' or $i-value == null) {
       @return true;
@@ -374,11 +372,15 @@ $type-check-schemas: (
     $unit: map-get($type-check-schema, 'u');
 
     @if $typeof != null and not t-o($value, $typeof) {
-      $error: throw(value-msg('#{to-string($value)} (type: #{meta.type-of($value)})', $i-value));
+      @if not $quiet {
+        $error: throw(value-msg('#{to-string($value)} (type: #{meta.type-of($value)})', $i-value));
+      }
       @return false;
     }
     @if $unit != null and not u($value, $unit) {
-      $error: throw(value-msg('#{to-string($value)} (unit: #{unit($value)})', $i-value));
+      @if not $quiet {
+        $error: throw(value-msg('#{to-string($value)} (unit: #{unit($value)})', $i-value));
+      }
       @return false;
     }
   }
@@ -397,16 +399,21 @@ $type-check-schemas: (
 /// @returns {bool}
 ///   True if the value passes the check, false if it doesn't.
 ///
+/// @throw
+///
 /// @group type
 ///
 @function check-list-type($value, $i-value) {
+  $match: false;
   @each $type in $i-value {
-    $match: false;
-    @if check-individual-type($value, $type) {
+    @if check-individual-type($value, $type, true) {
       $match: true;
     }
-    @return $match;
   }
+  @if not $match {
+    $error: throw(value-msg('#{to-string($value)} (type: #{meta.type-of($value)})', $i-value));
+  }
+  @return $match;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
