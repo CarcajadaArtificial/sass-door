@@ -1,16 +1,19 @@
 # Changelog
 
-## `v0.0.17`
+## `v0.0.18`
 
-- Added a `$quiet` argument to `check-individual-type()`.
-- Added a throw to `check-list-type()`.
-- The call of `check-individual-type()` in `check-list-type()` is now quiet.
+- Added the Shorthands group and moved `t-o()`, `u()`, and `c()` there.
+- Moved the Basics group to the end and added Type Validation.
+- Added `capitalize()` unit tests.
+- Added `map-next-key()` and unit tests to the Basics group.
 
 ## Goals for `v0.1.0`
   - [ ] Document usage
     - [ ] Type validation usage
     - [ ] Sass basics
-  - [ ] Sass basics
+  - [x] Sass basics
     - [x] to-string(any)
     - [x] capitalize(string)
-    - [ ] map-next-key()
+    - [x] map-next-key()
+  - [ ] Type validation
+    - [ ] Add a arglist option for spread args.
