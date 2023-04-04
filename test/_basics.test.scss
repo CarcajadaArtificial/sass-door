@@ -72,4 +72,52 @@
       );
     }
   }
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // capitalize($string) [Function]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('capitalize()') {
+    $map: (
+      A: 'value-A',
+      B: 'value-B',
+      C: 'value-C',
+    );
+    // Correct input
+    @include it('Returns a string with the first letter turned to uppercase.') {
+      @include assert-equal(capitalize('test test'), 'Test test');
+    }
+    // Incorrect input
+    @include it('[Value Error] Returns null') {
+      @include assert-equal(capitalize(0), null);
+    }
+  }
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // map-next-key($map, $current-key) [Function]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('next-key-in-map()') {
+    $map: (
+      A: 'value-A',
+      B: 'value-B',
+      C: 'value-C',
+    );
+    // Correct input
+    @include it('Returns the next key when found.') {
+      @include assert-equal(map-next-key($map, 'A'), 'B');
+    }
+    // Correct input - last
+    @include it('Returns null when the key is the last.') {
+      @include assert-equal(map-next-key($map, 'C'), null);
+    }
+    // Incorrect input - missing
+    @include it('[Indexing Error] Returns -1 when the key is not found in the map.') {
+      @include assert-equal(map-next-key($map, 'X'), -1);
+    }
+    // Incorrect input - incorrect type
+    @include it('[Value Error] Returns -1 when the input is not a map') {
+      @include assert-equal(map-next-key(0, 'A'), -1);
+    }
+    // Incorrect input - incorrect type
+    @include it('[Value Error] Returns -1 when the input is not a string') {
+      @include assert-equal(map-next-key($map, 0), -1);
+    }
+  }
 }

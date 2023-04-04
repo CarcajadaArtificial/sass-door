@@ -56,10 +56,10 @@
 @use 'sass:map';
 
 // =====================================================================================================
-//   ___          _
-//  | _ ) __ _ __(_)__ ___
-//  | _ \/ _` (_-< / _(_-<
-//  |___/\__,_/__/_\__/__/
+//   ___ _            _   _                 _
+//  / __| |_  ___ _ _| |_| |_  __ _ _ _  __| |___
+//  \__ \ ' \/ _ \ '_|  _| ' \/ _` | ' \/ _` (_-<
+//  |___/_||_\___/_|  \__|_||_\__,_|_||_\__,_/__/
 //
 // =====================================================================================================
 
@@ -75,7 +75,7 @@
 /// @return {bool}
 ///   A bool for a type match confirmation.
 ///
-/// @group basics
+/// @group shorthand
 ///
 @function t-o($v, $t) {
   @return meta.type-of($v) == $t;
@@ -93,7 +93,7 @@
 /// @return {bool}
 ///   A bool for a unit of measurement match confirmation.
 ///
-/// @group basics
+/// @group shorthand
 ///
 @function u($v, $u) {
   @return unit($v) == $u;
@@ -111,63 +111,10 @@
 /// @return {any}
 ///   The returned value from calling $f.
 ///
-/// @group basics
+/// @group shorthand
 ///
 @function c($f, $p...) {
   @return meta.call($f, $p...);
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// Turns the first letter of a word into uppercase.
-///
-/// @param {string} $str
-///   The word that is going to be capitalized.
-///
-/// @return {string/null}
-///   The same string but capitalized. Null if `$str` is not a string
-///
-/// @group basics
-///
-@function capitalize($str) {
-  @if t-o($str, 'string') {
-    @return to-upper-case(str-slice($str, 1, 1)) + str-slice($str, 2);
-  }
-  @return null;
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// This function converts a value of any type into string.
-///
-/// @param {any} $v
-///   A value of any type.
-///
-/// @return {string}
-///   The value $v converted to string.
-///
-/// @group basics
-///
-@function to-string($v) {
-  @if $v == null {
-    @return '';
-  } @else if t-o($v, 'string') {
-    @return $v;
-  } @else if t-o($v, 'number') or t-o($v, 'bool') or t-o($v, 'color') {
-    @return #{$v};
-  } @else if t-o($v, 'function') or t-o($v, 'arglist') or t-o($v, 'calculation') {
-    @return meta.type-of($v);
-  } @else if t-o($v, 'list') {
-    $acum: '(';
-    @each $value in $v {
-      $acum: '#{$acum}#{to-string($value)},';
-    }
-    @return '#{$acum})';
-  } @else if t-o($v, 'map') {
-    $acum: '(';
-    @each $key, $value in $v {
-      $acum: '#{$acum}#{$key}:#{to-string($value)},';
-    }
-    @return '#{$acum})';
-  }
 }
 
 // =====================================================================================================
@@ -445,4 +392,98 @@ $type-check-schemas: (
   } @else {
     @return check-individual-type($value, $interface);
   }
+}
+
+// =====================================================================================================
+//   ___          _
+//  | _ ) __ _ __(_)__ ___
+//  | _ \/ _` (_-< / _(_-<
+//  |___/\__,_/__/_\__/__/
+//
+// =====================================================================================================
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Turns the first letter of a word into uppercase.
+///
+/// @param {string} $str
+///   The word that is going to be capitalized.
+///
+/// @return {string/null}
+///   The same string but capitalized. Null if `$str` is not a string
+///
+/// @group basics
+///
+@function capitalize($str) {
+  @if check($str, 'string') {
+    @return to-upper-case(str-slice($str, 1, 1)) + str-slice($str, 2);
+  }
+  @return null;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function converts a value of any type into string.
+///
+/// @param {any} $v
+///   A value of any type.
+///
+/// @return {string}
+///   The value $v converted to string.
+///
+/// @group basics
+///
+@function to-string($v) {
+  @if $v == null {
+    @return '';
+  } @else if t-o($v, 'string') {
+    @return $v;
+  } @else if t-o($v, 'number') or t-o($v, 'bool') or t-o($v, 'color') {
+    @return #{$v};
+  } @else if t-o($v, 'function') or t-o($v, 'arglist') or t-o($v, 'calculation') {
+    @return meta.type-of($v);
+  } @else if t-o($v, 'list') {
+    $acum: '(';
+    @each $value in $v {
+      $acum: '#{$acum}#{to-string($value)},';
+    }
+    @return '#{$acum})';
+  } @else if t-o($v, 'map') {
+    $acum: '(';
+    @each $key, $value in $v {
+      $acum: '#{$acum}#{$key}:#{to-string($value)},';
+    }
+    @return '#{$acum})';
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Returns the next key in a map given the current key. Returns null if `$current-key` is the last.
+/// It throws an error if the current key is not found in the map.
+///
+/// @param {map} $map
+///   The map to be searched.
+///
+/// @param {string} $current-key
+///   The current key in the map.
+///
+/// @return {string/null/-1}
+///   - `string` The key that is next.
+///   - `null` The current key is the last, so there is a null key next.
+///   - `-1` Invalid argument types or key not found.
+///
+/// @group basics
+///
+@function map-next-key($map, $current-key) {
+  @if check($map, 'map') and check($current-key, 'string') {
+    @if not(map.has-key($map, $current-key)) {
+      $error: throw(index-msg($current-key, '$map'));
+      @return -1;
+    }
+    $keys: map.keys($map);
+    $current-index: list.index($keys, $current-key);
+    @if $current-index == list.length($keys) {
+      @return null;
+    }
+    @return list.nth($keys, $current-index + 1);
+  }
+  @return -1;
 }
