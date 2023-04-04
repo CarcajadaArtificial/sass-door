@@ -1,1 +1,360 @@
-@forward 'src/index';
+//  _________________________________________________________________________________________________  //
+// |                                                                                                 | //
+// |      .oooooo..o                                  oooooooooo.                                    | //
+// |     d8P'    `Y8                                  `888'   `Y8b                                   | //
+// |     Y88bo.       .oooo.    .oooo.o  .oooo.o       888      888  .ooooo.   .ooooo.  oooo d8b     | //
+// |      `"Y8888o.  `P  )88b  d88(  "8 d88(  "8       888      888 d88' `88b d88' `88b `888""8P     | //
+// |          `"Y88b  .oP"888  `"Y88b.  `"Y88b.        888      888 888   888 888   888  888         | //
+// |     oo     .d8P d8(  888  o.  )88b o.  )88b       888     d88' 888   888 888   888  888         | //
+// |     8""88888P'  `Y888""8o 8""888P' 8""888P'      o888bood8P'   `Y8bod8P' `Y8bod8P' d888b        | //
+// |_________________________________________________________________________________________________| //
+// |_________________________________________________________________________________________________| //
+// |__|| ||___||  ||___||  ||___||  ||___||  |_|___|___|__|  ||___||  ||___||  ||___||  ||___||  |__|| //
+// ||__| |__|__|  |__|__|  |__|__|  |__|__|  |___|___|___||  |__|__|  |__|__|  |__|__|  |__|__|  |__|| //
+// |__|| ||___||  ||___||  ||___||  ||___||  |_|___|___|__|  ||___||  ||___||  ||___||  ||___||  |__|| //
+// ||__| |__|__|  |__|__|  |__|__|  |__|__|  |    ||   |  |  |__|__|  |__|__|  |__|__|  |__|__|  |__|| //
+// |__|| ||___||  ||___||  ||___||  ||___||  |    ||   |  |  ||___||  ||___||  ||___||  ||___||  |__|| //
+// ||__| |__|__|  |__|__|  |__|__|  |__|__|  |    ||   |  |  |__|__|  |__|__|  |__|__|  |__|__|  |__|| //
+// |__|| ||___||  ||___||  ||___||  ||___||  |    ||   |  |  ||___||  ||___||  ||___||  ||___||  |__|| //
+// ||__| |__|__|  |__|__|  |__|__|  |__|__|  |    ||   |  |  |__|__|  |__|__|  |__|__|  |__|__|  |__|| //
+// |__|| ||___||  ||___||  ||___||  ||___||  |   O||   |0 |  ||___||  ||___||  ||___||  ||___||  |__|| //
+// ||__| |__|__|  |__|__|  |__|__|  |__|__|  |    ||   |  |  |__|__|  |__|__|  |__|__|  |__|__|  |__|| //
+// |__|| ||___||  ||___||  ||___||  ||___||  |    ||   |  |  ||___||  ||___||  ||___||  ||___||  |__|| //
+// ||__| |__|__|  |__|__|  |__|__|  |__|__|__|____||__ |__|  |__|__|  |__|__|  |__|__|  |__|__|  |__|| //
+// |LLL| |LLLLL|  |LLLLL|  |LLLLL|  |LLLLL|______________||  |LLLLL|  |LLLLL|  |LLLLL|  |LLLLL|  |LLL| //
+// |LLL| |LLLLL|  |LLLLL|  |LLLLL|  |LLL|______________|  |  |LLLLL|  |LLLLL|  |LLLLL|  |LLLLL|  |LLL| //
+// |LLL|_|LLLLL|__|LLLLL|__|LLLLL|__|L|______________|____|__|LLLLL|__|LLLLL|__|LLLLL|__|LLLLL|__|LLL| //
+//                                                                                                     //
+//                                                                Original ASCII Art By Sherry Stowers //
+// ___________________________________________________________________________________________________ //
+//
+// MIT License
+//
+// Copyright (c) 2023 Oscar Alfonso Guerrero Nuñez
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.
+// ___________________________________________________________________________________________________ //
+
+@use 'sass:meta';
+@use 'sass:list';
+@use 'sass:map';
+
+// =====================================================================================================
+//   _____ _
+//  |_   _| |_  _ _ _____ __ __
+//    | | | ' \| '_/ _ \ V  V /
+//    |_| |_||_|_| \___/\_/\_/
+//
+// =====================================================================================================
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This variable sets the default value for whether error messages should be caught and displayed. It can be overritten to false to disable this feature.
+///
+/// @type bool
+///
+/// @group config
+///
+$catching-enabled: true !default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This variable sets the name of the error custom property for the `throw()` mixin.
+///
+/// @type string
+///
+/// @group config
+///
+$mixin-style-name: '--scss-error' !default;
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Simplifies error handling by generating a custom error message and throwing an exception.
+///
+/// @param {string} $message ['']
+///   The content of the message to be displayed.
+///
+/// @param {bool} $catch [$catching-enabled]
+///   Throws @error if true.
+///
+/// @return {string}
+///   Returns the `$message` by default.
+///
+/// @throw
+///   The global throw, this is what every exception will use to handle an error.
+///
+/// @group throw
+///
+@function throw($message: '', $catch: $catching-enabled) {
+  @if $catch {
+    @error $message;
+  }
+  @return $message;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin does what the function `throw()` does, but applied to a `--scss-error` property.
+///
+/// @param {string} $message -
+///   The content of the message to be displayed.
+///
+/// @param {bool} $catch [$catching-enabled]
+///   Throws @error if true.
+///
+/// @group throw
+///
+@mixin throw($message, $catch: $catching-enabled) {
+  #{$mixin-style-name}: '#{throw($message, $catch)}';
+}
+
+// =====================================================================================================
+//   ___                   __  __
+//  | __|_ _ _ _ ___ _ _  |  \/  |___ ______ __ _ __ _ ___ ___
+//  | _|| '_| '_/ _ \ '_| | |\/| / -_|_-<_-</ _` / _` / -_|_-<
+//  |___|_| |_| \___/_|   |_|  |_\___/__/__/\__,_\__, \___/__/
+//                                               |___/
+// =====================================================================================================
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Creates a `(Value Error)`, these are used for incorrect values (e.g. incorrect types, values out of a range, not null, a string with a wrong format, etc).
+///
+/// @param {string} $value [null]
+///   The incorrect value.
+///
+/// @param {string} $expected [null]
+///   A guide on what the correct value must be.
+///
+/// @group msg
+///
+@function value-msg($value, $expected) {
+  @return '(Value Error) The value #{$value} is invalid. Expected: #{$expected}';
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Creates an `(Indexing Error)`, these are used for missing keys or values that must be present on a map or a list.
+///
+/// @param {string} $key [null]
+///   The key or value that wasn't found.
+///
+/// @param {string} $container [null]
+///   The list or map there `$key` wasn't found.
+///
+/// @group msg
+///
+@function index-msg($key, $container) {
+  @return '(Indexing Error) The value #{$key} was not found inside #{$container}';
+}
+
+// =====================================================================================================
+//   _____                __   __    _ _    _      _   _
+//  |_   _|  _ _ __  ___  \ \ / /_ _| (_)__| |__ _| |_(_)___ _ _
+//    | || || | '_ \/ -_)  \ V / _` | | / _` / _` |  _| / _ \ ' \
+//    |_| \_, | .__/\___|   \_/\__,_|_|_\__,_\__,_|\__|_\___/_||_|
+//        |__/|_|
+// =====================================================================================================
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+// *This variable cannot be documented using Sassdoc, the "// prettier-ignore" line breaks the token documentation and is unable to work.*
+//
+// This schema contains all the supported SCSS data types. There are two types of verifications:
+//   - t-o: meta.type-of()
+//   - u: unit()
+//
+// @type {map}
+//
+// @group type
+//
+// prettier-ignore
+$type-check-schemas: (
+  // Simple
+  any:            (                                 ),
+  number:         ( t-o: 'number'                   ),
+  color:          ( t-o: 'color'                    ),
+  calculation:    ( t-o: 'calculation'              ),
+  bool:           ( t-o: 'bool'                     ),
+  function:       ( t-o: 'function'                 ),
+  arglist:        ( t-o: 'arglist'                  ),
+  string:         ( t-o: 'string'                   ),
+  list:           ( t-o: 'list'                     ),
+  map:            ( t-o: 'map'                      ),
+  // Time
+  ms:             ( t-o: 'number',      u: 'ms'     ),
+  s:              ( t-o: 'number',      u: 's'      ),
+  // Angle
+  deg:            ( t-o: 'number',      u: 'deg'    ),
+  rad:            ( t-o: 'number',      u: 'rad'    ),
+  grad:           ( t-o: 'number',      u: 'grad'   ),
+  turn:           ( t-o: 'number',      u: 'turn'   ),
+  // Frecuency
+  Hz:             ( t-o: 'number',      u: 'Hz'     ),
+  kHz:            ( t-o: 'number',      u: 'kHz'    ),
+  // Relative Length
+  em:             ( t-o: 'number',      u: 'em'     ),
+  ex:             ( t-o: 'number',      u: 'ex'     ),
+  ch:             ( t-o: 'number',      u: 'ch'     ),
+  rem:            ( t-o: 'number',      u: 'rem'    ),
+  vw:             ( t-o: 'number',      u: 'vw'     ),
+  vh:             ( t-o: 'number',      u: 'vh'     ),
+  vmin:           ( t-o: 'number',      u: 'vmin'   ),
+  vmax:           ( t-o: 'number',      u: 'vmax'   ),
+  // Absolute length
+  cm:             ( t-o: 'number',      u: 'cm'     ),
+  mm:             ( t-o: 'number',      u: 'mm'     ),
+  in:             ( t-o: 'number',      u: 'in'     ),
+  px:             ( t-o: 'number',      u: 'px'     ),
+  pt:             ( t-o: 'number',      u: 'pt'     ),
+  pc:             ( t-o: 'number',      u: 'pc'     ),
+  // Percentage
+  pct:            ( t-o: 'number',      u: '%'      ),
+  // Resolution
+  dpi:            ( t-o: 'number',      u: 'dpi'    ),
+  dpcm:           ( t-o: 'number',      u: 'dpcm'   ),
+  dppx:           ( t-o: 'number',      u: 'dppx'   ),
+);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `meta.type-of($v) == $t`
+///
+/// @param {any} $v
+///   The value whose type is to be compared.
+///
+/// @param {string} $t
+///   The expected type for the value.
+///
+/// @return {bool} A bool for a type match confirmation.
+///
+/// @group type
+///
+@function t-o($v, $t) {
+  @return meta.type-of($v) == $t;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `unit($v) == $v`
+///
+/// @param {any} $v
+///   The value whose unit of measurement is to be compared.
+///
+/// @param {string} $t
+///   The expected type for the value.
+///
+/// @return {bool} A bool for a unit of measurement match confirmation.
+///
+/// @group type
+///
+@function u($v, $u) {
+  @return unit($v) == $u;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `meta.call($f, $p...);
+///
+/// @param {function} $f
+///   The function to be called
+///
+/// @param {arglist} $p
+///   The list of parameters to be passed to the function.
+///
+/// @return {any} The returned value from calling $f.
+///
+/// @group type
+///
+@function c($f, $p...) {
+  @return meta.call($f, $p...);
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function varifies the individual type of a value and compares it to the interfaced type.
+///
+/// @param {any} $value
+///   The value that will be type verified.
+///
+/// @param {any} $i-value
+///   The type of the value from the interface.
+///
+/// @return {bool} True if the value passes the check, false if it doesn't.
+///
+/// @group type
+///
+@function passes-type-check($value, $i-value) {
+  @if not map-has-key($type-check-schemas, $i-value) {
+    @if $value == null and ($i-value == 'null' or $i-value == null) {
+      @return true;
+    }
+    @return $value == $i-value;
+  } @else {
+    $type-check-schema: map-get($type-check-schemas, $i-value);
+    $typeof: map-get($type-check-schema, 't-o');
+    $unit: map-get($type-check-schema, 'u');
+
+    @if $typeof != null and not t-o($value, $typeof) {
+      @return false;
+    }
+    @if $unit != null and not u($value, $unit) {
+      @return false;
+    }
+  }
+  @return true;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function verifies the type of a value and looks for a match on a list of posible types.
+///
+/// @param {any} $value
+///   The value that will be type verified.
+///
+/// @param {list} $i-value
+///   The list of possible types for the value.
+///
+/// @returns {bool} True if the value passes the check, false if it doesn't.
+///
+/// @group type
+///
+@function passes-optional-list-type-check($value, $i-value) {
+  @each $type in $i-value {
+    $match: false;
+    @if passes-type-check($value, $type) {
+      $match: true;
+    }
+    @return $match;
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function verifies the types of the values inside a map. All the keys must match as well.
+///
+/// @param {map} $schema
+///   This map contains the values planned in the `$interface` map.
+///
+/// @param {map} $interface
+///   This map contains the type planning of the map `$schema`.
+///
+/// @returns {bool} True if the schema perfectly matches the interface, false if it doesn't.
+///
+/// @group type
+///
+@function type-check($schema, $interface) {
+  @each $key, $value in $schema {
+    $i-value: map-get($interface, $key);
+    @if (t-o($i-value, 'string') and not passes-type-check($value, $i-value)) or
+      (t-o($i-value, 'list') and not passes-optional-list-type-check($value, $i-value)) or
+      (t-o($i-value, 'map') and not type-check($value, $i-value))
+    {
+      @return false;
+    }
+  }
+  @return true;
+}

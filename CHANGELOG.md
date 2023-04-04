@@ -1,10 +1,10 @@
 # Changelog
 
-## `v0.0.10`
+## `v0.0.11`
 
-### Added a Module for type validation
-  - `src/_type.scss`
-  - `test/_type.test.scss`
+### Changed the modular system to a mono script
+  - `index.scss`
+  - `.sassdocrc`
 
 ### Minor updates
-  - `README.md`
+  - `package.json`
