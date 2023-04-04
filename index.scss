@@ -72,7 +72,8 @@
 /// @param {string} $t
 ///   The expected type for the value.
 ///
-/// @return {bool} A bool for a type match confirmation.
+/// @return {bool}
+///   A bool for a type match confirmation.
 ///
 /// @group basics
 ///
@@ -89,7 +90,8 @@
 /// @param {string} $t
 ///   The expected type for the value.
 ///
-/// @return {bool} A bool for a unit of measurement match confirmation.
+/// @return {bool}
+///   A bool for a unit of measurement match confirmation.
 ///
 /// @group basics
 ///
@@ -106,7 +108,8 @@
 /// @param {arglist} $p
 ///   The list of parameters to be passed to the function.
 ///
-/// @return {any} The returned value from calling $f.
+/// @return {any}
+///   The returned value from calling $f.
 ///
 /// @group basics
 ///
@@ -120,7 +123,8 @@
 /// @param {string} $str
 ///   The word that is going to be capitalized.
 ///
-/// @return {string/null} the same string but capitalized. Null if `$str` is not a string
+/// @return {string/null}
+///   The same string but capitalized. Null if `$str` is not a string
 ///
 /// @group basics
 ///
@@ -137,7 +141,8 @@
 /// @param {any} $v
 ///   A value of any type.
 ///
-/// @return {string} The value $v converted to string.
+/// @return {string}
+///   The value $v converted to string.
 ///
 /// @group basics
 ///
@@ -174,7 +179,8 @@
 // =====================================================================================================
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// This variable sets the default value for whether error messages should be caught and displayed. It can be overritten to false to disable this feature.
+/// This variable sets the default value for whether error messages should be caught and displayed.
+/// It can be overritten to false to disable this feature.
 ///
 /// @type bool
 ///
@@ -239,7 +245,8 @@ $mixin-style-name: '--scss-error' !default;
 // =====================================================================================================
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// Creates a `(Value Error)`, these are used for incorrect values (e.g. incorrect types, values out of a range, not null, a string with a wrong format, etc).
+/// Creates a `(Value Error)`, these are used for incorrect values (e.g. incorrect types, values out of
+/// a range, not null, a string with a wrong format, etc).
 ///
 /// @param {string} $value
 ///   The incorrect value.
@@ -254,7 +261,8 @@ $mixin-style-name: '--scss-error' !default;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// Creates an `(Indexing Error)`, these are used for missing keys or values that must be present on a map or a list.
+/// Creates an `(Indexing Error)`, these are used for missing keys or values that must be present on a
+/// map or a list.
 ///
 /// @param {string} $key
 ///   The key or value that wasn't found.
@@ -277,7 +285,8 @@ $mixin-style-name: '--scss-error' !default;
 // =====================================================================================================
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-// *This variable cannot be documented using Sassdoc, the "// prettier-ignore" line breaks the token documentation and is unable to work.*
+// *This variable cannot be documented using Sassdoc, the "// prettier-ignore" line breaks the token
+// documentation and is unable to work.*
 //
 // This schema contains all the supported SCSS data types. There are two types of verifications:
 //   - t-o: meta.type-of()
@@ -346,13 +355,18 @@ $type-check-schemas: (
 ///
 /// @return {bool} True if the value passes the check, false if it doesn't.
 ///
+/// @throw
+///   This is the only function that throws for type validation, this is because this is the base of
+///   type validation, every other type validation function uses this one.
+///
 /// @group type
 ///
-@function passes-type-check($value, $i-value) {
+@function check-individual-type($value, $i-value) {
   @if not map-has-key($type-check-schemas, $i-value) {
     @if $value == null and ($i-value == 'null' or $i-value == null) {
       @return true;
     }
+    /// @todo Error handling
     @return $value == $i-value;
   } @else {
     $type-check-schema: map-get($type-check-schemas, $i-value);
@@ -360,9 +374,11 @@ $type-check-schemas: (
     $unit: map-get($type-check-schema, 'u');
 
     @if $typeof != null and not t-o($value, $typeof) {
+      $error: throw(value-msg('#{to-string($value)} (type: #{meta.type-of($value)})', $i-value));
       @return false;
     }
     @if $unit != null and not u($value, $unit) {
+      $error: throw(value-msg('#{to-string($value)} (unit: #{unit($value)})', $i-value));
       @return false;
     }
   }
@@ -378,14 +394,15 @@ $type-check-schemas: (
 /// @param {list} $i-value
 ///   The list of possible types for the value.
 ///
-/// @returns {bool} True if the value passes the check, false if it doesn't.
+/// @returns {bool}
+///   True if the value passes the check, false if it doesn't.
 ///
 /// @group type
 ///
-@function passes-optional-list-type-check($value, $i-value) {
+@function check-list-type($value, $i-value) {
   @each $type in $i-value {
     $match: false;
-    @if passes-type-check($value, $type) {
+    @if check-individual-type($value, $type) {
       $match: true;
     }
     @return $match;
@@ -395,26 +412,30 @@ $type-check-schemas: (
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This function verifies the types of the values inside a map. All the keys must match as well.
 ///
-/// @param {map} $schema
+/// @param {any} $value
 ///   This map contains the values planned in the `$interface` map.
 ///
-/// @param {map} $interface
-///   This map contains the type planning of the map `$schema`.
+/// @param {any} $interface
+///   This map contains the type planning of the map `$value`.
 ///
-/// @returns {bool} True if the schema perfectly matches the interface, false if it doesn't.
+/// @returns {bool}
+///   True if the value perfectly matches the interface, false if it doesn't.
 ///
 /// @group type
 ///
-@function type-check($schema, $interface) {
-  @each $key, $value in $schema {
-    $i-value: map-get($interface, $key);
-    @if (t-o($i-value, 'string') and not passes-type-check($value, $i-value)) or
-      (t-o($i-value, 'list') and not passes-optional-list-type-check($value, $i-value)) or
-      (t-o($i-value, 'map') and not type-check($value, $i-value))
-    {
-      $error: throw(value-msg($value, $i-value));
-      @return false;
+@function check($value, $interface) {
+  @if t-o($interface, 'list') and check-list-type($value, $interface) {
+    @return true;
+  } @else if t-o($interface, 'map') {
+    $map: $value;
+    @each $key, $value in $map {
+      $i-value: map-get($interface, $key);
+      @if not check($value, $i-value) {
+        @return false;
+      }
     }
+    @return true;
+  } @else {
+    @return check-individual-type($value, $interface);
   }
-  @return true;
 }

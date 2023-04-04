@@ -94,20 +94,17 @@ $i-correct: (
 
 @include test-module('Type') {
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // passes-type-check() [Function]
+  // check() [Function]
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @include describe('Individual type checking') {
     @each $key, $value in $correct-schema {
       $i-value: map-get($i-correct, $key);
 
       @include it('checks type "#{$i-value}"') {
-        @include assert-true(passes-type-check($value, $i-value));
+        @include assert-true(check($value, $i-value));
       }
     }
   }
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-  // type-check() [Function]
-  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @include describe('List of optional values') {
     @include it('checks for a list of correct values') {
       $schema: (
@@ -122,7 +119,7 @@ $i-correct: (
         ),
       );
 
-      @include assert-true(type-check($schema, $interface));
+      @include assert-true(check($schema, $interface));
     }
     @include it('checks for a list of where the type did not match') {
       $schema: (
@@ -136,7 +133,7 @@ $i-correct: (
         ),
       );
 
-      @include assert-false(type-check($schema, $interface));
+      @include assert-false(check($schema, $interface));
     }
   }
 
@@ -155,7 +152,7 @@ $i-correct: (
         ),
       );
 
-      @include assert-true(type-check($schema, $interface));
+      @include assert-true(check($schema, $interface));
     }
 
     @include it('checks for a subinterface without a match') {
@@ -172,7 +169,7 @@ $i-correct: (
         ),
       );
 
-      @include assert-false(type-check($schema, $interface));
+      @include assert-false(check($schema, $interface));
     }
 
     @include it('checks for a wrongly typed subinterface') {
@@ -186,7 +183,7 @@ $i-correct: (
         subinterface: 'number',
       );
 
-      @include assert-false(type-check($schema, $interface));
+      @include assert-false(check($schema, $interface));
     }
   }
 }

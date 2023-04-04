@@ -1,20 +1,26 @@
 # Sass Door 🚪
-``Hello ( ´ ω ` )ノﾞ`` thanks a lot for being interested in this library. Something I've found when developing SCSS is that the language doesn't feature any help in error handling besides `@error`. The code that upgrades this is really short but I'd rather not copy and paste it in every project where I need some type of error handling.
+``Hello ( ´ ω ` )ノﾞ`` thanks a lot for being interested in this library. Here's the story, even though I really like SCSS, I find it far away from the things I deeply love. I feel uneasy that the general direction of Sass as a programming tool points becomes more and more unaligned with my own path as a developer. I think there are so many more robust and complex things that can be done using it if only it had a few upgrades.
 
-[Read the docs](https://carcajadaartificial.github.io/sass-door/)
+ - **Type Safety** - Having Scss behave a little more like TypeScript or Rust would be fantastic. Having data types for different units and keywords would be helpful for writing functions and mixins.
+ - **Error Handling** - There are only three at-rules `@error`, `@warn`, and `@debug` that help somewhat in handling errors. Simply having a `throw()` function and mixin would make a huge difference.
+ - **Basic Utilities** - Some staples are missing in the official modules, type conversions, transformations, and others.
+
+These are the scope of things I can add myself. These three upgrades can mostly be done using Sass itself and rather slimly. If I could vent for a second, what I believe this language desperately needs that can only be correctly done by modifying the Dart source code are: hard typing, callback functions, complete modularity, and unit tests (I know about Sass True and appreciate it but I think that it is limited due to having a Sass implementation).
 
 ## Setup
 The simplest way to setup Sass Door is to install it in a node project:
 ```bash
 npm i sass-door -D
 ```
-But in the case you're not using Node in your project you can import it as a git submodule or simply by copying the files to your project.
+But in the case you're not using Node in your project you can import it as a git submodule or simply by copying `~/index.scss` to your project.
 
 ## Usage
 To use this library, one must simply import it using the `@use` sass keyword and target the index of the project.
 ```scss
 @use 'path/to/sass-door' as *;
 ```
+
+[Read the reference](https://carcajadaartificial.github.io/sass-door/)
 
 ### Interface type validation
 With a few functions, a big map, and a little imagination we can simulate type safety right here in SCSS. _If only Scss would become rusty..._
