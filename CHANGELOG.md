@@ -1,13 +1,13 @@
 # Changelog
 
-## `v0.0.12`
+## `v0.0.13`
 
-### Added `to-string()` and `capitalize()` basics.
-  - `index.scss`
-  - `.sassdocrc`
-
-### Minor updates
-  - `package.json`
+- Added error handling to type validation.
+- Added to-string to error message's values.
+- Added library importing to testing modules
+  - `/test/lib.scss`
+  - `/test/_basics.test.scss`
+  - `/test/_type.test.scss`
 
 ## Goals for `v0.1.0`
   - [ ] Document usage

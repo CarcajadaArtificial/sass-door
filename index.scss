@@ -250,7 +250,7 @@ $mixin-style-name: '--scss-error' !default;
 /// @group msg
 ///
 @function value-msg($value, $expected) {
-  @return '(Value Error) The value #{$value} is invalid. Expected: #{$expected}';
+  @return '(Value Error) The value #{to-string($value)} is invalid. Expected: #{to-string($expected)}';
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -265,7 +265,7 @@ $mixin-style-name: '--scss-error' !default;
 /// @group msg
 ///
 @function index-msg($key, $container) {
-  @return '(Indexing Error) The value #{$key} was not found inside #{$container}';
+  @return '(Indexing Error) The value #{to-string($key)} was not found inside #{to-string($container)}';
 }
 
 // =====================================================================================================
@@ -412,6 +412,7 @@ $type-check-schemas: (
       (t-o($i-value, 'list') and not passes-optional-list-type-check($value, $i-value)) or
       (t-o($i-value, 'map') and not type-check($value, $i-value))
     {
+      $error: throw(value-msg($value, $i-value));
       @return false;
     }
   }

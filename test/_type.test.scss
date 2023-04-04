@@ -1,5 +1,5 @@
 @use 'true' as *;
-@use '../index' as *;
+@use 'lib' as *;
 
 $correct-schema: (
   v-any: null,

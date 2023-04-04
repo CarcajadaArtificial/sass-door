@@ -1,6 +1,6 @@
 @use 'sass:list';
 @use 'true' as *;
-@use '../index' as *;
+@use 'lib' as *;
 
 @include test-module('Basics') {
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
