@@ -1,0 +1,75 @@
+@use 'sass:list';
+@use 'true' as *;
+@use '../index' as *;
+
+@include test-module('Basics') {
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // to-string() [Function]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('String convertion of simple values') {
+    $values: ('test', 4, 4dpi, 4%, 4deg, 4Hz, 4px, 4vh, true, false, null, #420420);
+    $strings: ('test', '4', '4dpi', '4%', '4deg', '4Hz', '4px', '4vh', 'true', 'false', '', '#420420');
+    @for $i from 1 through list.length($values) {
+      $v: list.nth($values, $i);
+      $s: list.nth($strings, $i);
+
+      @include it('converts to #{$s}') {
+        @include assert-equal($s, to-string($v));
+      }
+    }
+  }
+  @include describe('String convertion of lists') {
+    @include it('converts a list of strings') {
+      @include assert-equal('(a,b,c,)', to-string(('a', 'b', 'c')));
+    }
+    @include it('converts a list of other values') {
+      @include assert-equal('(1,true,#420420,)', to-string((1, true, #420420)));
+    }
+    @include it('converts a list of nested lists') {
+      @include assert-equal('(a,b,c,(a,b,c,),)', to-string(('a', 'b', 'c', ('a', 'b', 'c'))));
+    }
+  }
+  @include describe('String convertion of lists') {
+    @include it('converts a map of strings') {
+      @include assert-equal(
+        '(a:A,b:B,c:C,)',
+        to-string(
+          (
+            a: 'A',
+            b: 'B',
+            c: 'C',
+          )
+        )
+      );
+    }
+    @include it('converts a map of other values') {
+      @include assert-equal(
+        '(a:1,b:true,c:#420420,)',
+        to-string(
+          (
+            a: 1,
+            b: true,
+            c: #420420,
+          )
+        )
+      );
+    }
+    @include it('converts a map of strings') {
+      @include assert-equal(
+        '(a:A,b:B,c:C,d:(a:A,b:B,c:C,),)',
+        to-string(
+          (
+            a: 'A',
+            b: 'B',
+            c: 'C',
+            d: (
+              a: 'A',
+              b: 'B',
+              c: 'C',
+            ),
+          )
+        )
+      );
+    }
+  }
+}

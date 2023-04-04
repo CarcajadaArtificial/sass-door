@@ -56,6 +56,116 @@
 @use 'sass:map';
 
 // =====================================================================================================
+//   ___          _
+//  | _ ) __ _ __(_)__ ___
+//  | _ \/ _` (_-< / _(_-<
+//  |___/\__,_/__/_\__/__/
+//
+// =====================================================================================================
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `meta.type-of($v) == $t`
+///
+/// @param {any} $v
+///   The value whose type is to be compared.
+///
+/// @param {string} $t
+///   The expected type for the value.
+///
+/// @return {bool} A bool for a type match confirmation.
+///
+/// @group basics
+///
+@function t-o($v, $t) {
+  @return meta.type-of($v) == $t;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `unit($v) == $v`
+///
+/// @param {any} $v
+///   The value whose unit of measurement is to be compared.
+///
+/// @param {string} $t
+///   The expected type for the value.
+///
+/// @return {bool} A bool for a unit of measurement match confirmation.
+///
+/// @group basics
+///
+@function u($v, $u) {
+  @return unit($v) == $u;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Short for `meta.call($f, $p...);
+///
+/// @param {function} $f
+///   The function to be called
+///
+/// @param {arglist} $p
+///   The list of parameters to be passed to the function.
+///
+/// @return {any} The returned value from calling $f.
+///
+/// @group basics
+///
+@function c($f, $p...) {
+  @return meta.call($f, $p...);
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Turns the first letter of a word into uppercase.
+///
+/// @param {string} $str
+///   The word that is going to be capitalized.
+///
+/// @return {string/null} the same string but capitalized. Null if `$str` is not a string
+///
+/// @group basics
+///
+@function capitalize($str) {
+  @if t-o($str, 'string') {
+    @return to-upper-case(str-slice($str, 1, 1)) + str-slice($str, 2);
+  }
+  @return null;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function converts a value of any type into string.
+///
+/// @param {any} $v
+///   A value of any type.
+///
+/// @return {string} The value $v converted to string.
+///
+/// @group basics
+///
+@function to-string($v) {
+  @if $v == null {
+    @return '';
+  } @else if t-o($v, 'string') {
+    @return $v;
+  } @else if t-o($v, 'number') or t-o($v, 'bool') or t-o($v, 'color') {
+    @return #{$v};
+  } @else if t-o($v, 'function') or t-o($v, 'arglist') or t-o($v, 'calculation') {
+    @return meta.type-of($v);
+  } @else if t-o($v, 'list') {
+    $acum: '(';
+    @each $value in $v {
+      $acum: '#{$acum}#{to-string($value)},';
+    }
+    @return '#{$acum})';
+  } @else if t-o($v, 'map') {
+    $acum: '(';
+    @each $key, $value in $v {
+      $acum: '#{$acum}#{$key}:#{to-string($value)},';
+    }
+    @return '#{$acum})';
+  }
+}
+
+// =====================================================================================================
 //   _____ _
 //  |_   _| |_  _ _ _____ __ __
 //    | | | ' \| '_/ _ \ V  V /
@@ -131,10 +241,10 @@ $mixin-style-name: '--scss-error' !default;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// Creates a `(Value Error)`, these are used for incorrect values (e.g. incorrect types, values out of a range, not null, a string with a wrong format, etc).
 ///
-/// @param {string} $value [null]
+/// @param {string} $value
 ///   The incorrect value.
 ///
-/// @param {string} $expected [null]
+/// @param {string} $expected
 ///   A guide on what the correct value must be.
 ///
 /// @group msg
@@ -146,11 +256,11 @@ $mixin-style-name: '--scss-error' !default;
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// Creates an `(Indexing Error)`, these are used for missing keys or values that must be present on a map or a list.
 ///
-/// @param {string} $key [null]
+/// @param {string} $key
 ///   The key or value that wasn't found.
 ///
-/// @param {string} $container [null]
-///   The list or map there `$key` wasn't found.
+/// @param {string} $container
+///   The list or map where `$key` wasn't found.
 ///
 /// @group msg
 ///
@@ -223,58 +333,7 @@ $type-check-schemas: (
   dpi:            ( t-o: 'number',      u: 'dpi'    ),
   dpcm:           ( t-o: 'number',      u: 'dpcm'   ),
   dppx:           ( t-o: 'number',      u: 'dppx'   ),
-);
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// Short for `meta.type-of($v) == $t`
-///
-/// @param {any} $v
-///   The value whose type is to be compared.
-///
-/// @param {string} $t
-///   The expected type for the value.
-///
-/// @return {bool} A bool for a type match confirmation.
-///
-/// @group type
-///
-@function t-o($v, $t) {
-  @return meta.type-of($v) == $t;
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// Short for `unit($v) == $v`
-///
-/// @param {any} $v
-///   The value whose unit of measurement is to be compared.
-///
-/// @param {string} $t
-///   The expected type for the value.
-///
-/// @return {bool} A bool for a unit of measurement match confirmation.
-///
-/// @group type
-///
-@function u($v, $u) {
-  @return unit($v) == $u;
-}
-
-// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// Short for `meta.call($f, $p...);
-///
-/// @param {function} $f
-///   The function to be called
-///
-/// @param {arglist} $p
-///   The list of parameters to be passed to the function.
-///
-/// @return {any} The returned value from calling $f.
-///
-/// @group type
-///
-@function c($f, $p...) {
-  @return meta.call($f, $p...);
-}
+) !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This function varifies the individual type of a value and compares it to the interfaced type.
