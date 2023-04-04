@@ -1,9 +1,9 @@
 # Changelog
 
-## `v0.0.14`
+## `v0.0.15`
 
 - Minor updates
-  - `package.json`
+  - `README.md`
 
 ## Goals for `v0.1.0`
   - [ ] Document usage
