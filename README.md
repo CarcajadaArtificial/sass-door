@@ -23,7 +23,49 @@ To use this library, one must simply import it using the `@use` sass keyword and
 [Read the reference](https://carcajadaartificial.github.io/sass-door/)
 
 ### Interface type validation
-With a few functions, a big map, and a little imagination we can simulate type safety right here in SCSS. _If only Scss would become rusty..._
+With a few functions, a big map, and a little imagination we can simulate type safety right here in SCSS. _If only Scss would become rusty..._ So let's see the first example, say a simple function like one that squares a number. Given a scope for only number types (there won't be squaring strings, booleans, colors, etc) and a missing `@return` expression on the flow where the type does not match.
+```scss
+@use 'path/to/sass-door' as *;
+
+@function sq($n) {
+  @if check($n, 'number') {
+    @return $n * $n;
+  }
+}
+```
+
+### Type validation and unit testing
+Whenever unit tests come to mind in SCSS code, the only option is [True by Oddbird](github.com/oddbird/true). It is a fantastic library that, alone, makes unit testing available in Sass. 
+```scss
+@use 'path/to/sass-door' as *;
+@use 'true' as *;
+
+@function sq($n) {
+  @if check($n, 'number') {
+    @return $n * $n;
+  } @else {
+    @return -1;
+  }
+}
+
+@include test-module('Number functions') {
+  @include describe('@function sq($num)') {
+    @include it('Correctly squares a number') {
+      @include assert-equal(sq(12), 144);
+    }
+    @include it('Returns -1 with types other than a number') {
+      @include assert-equal(sq('12'), -1);
+    }
+  }
+}
+```
+When running the testing command, this is what the terminal would show:
+```bash
+Number functions
+  @function sq($num)
+    ✔ Correctly squares a number
+    ✔ Returns -1 with types other than number
+```
 
 ### Error handling in functions
 Once imported, the error-handling functions become available for usage. For example, this is how it would look like this:
@@ -76,11 +118,9 @@ As an additional feature, the error message string is also applied as a custom C
 .example {
   @include example-mixin(false);
 }
-/*
-.example {
-  --scss-error: "Incorrect input";
-}
-*/
+// .example {
+//   --scss-error: "Incorrect input";
+// }
 ```
 
 ## Configuration

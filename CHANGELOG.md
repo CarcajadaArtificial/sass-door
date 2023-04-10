@@ -1,15 +1,14 @@
 # Changelog
 
-## `v0.0.18`
+## `v0.0.19`
 
-- Added the Shorthands group and moved `t-o()`, `u()`, and `c()` there.
-- Moved the Basics group to the end and added Type Validation.
-- Added `capitalize()` unit tests.
-- Added `map-next-key()` and unit tests to the Basics group.
+- Added the `unitless` type.
+- Included better unit tests for the new `unitless` type.
+- Added type validation usage documentation.
 
 ## Goals for `v0.1.0`
   - [ ] Document usage
-    - [ ] Type validation usage
+    - [x] Type validation usage
     - [ ] Sass basics
   - [x] Sass basics
     - [x] to-string(any)
@@ -17,3 +16,7 @@
     - [x] map-next-key()
   - [ ] Type validation
     - [ ] Add a arglist option for spread args.
+    - [ ] Add type shorthands (e.g. "numbers", "non-numbers", "dimensional")
+    - [ ] Map functions that aid in extracting types like:
+      - [ ] except($type)
+      - [ ] extendable type map.

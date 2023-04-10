@@ -1,3 +1,5 @@
+@use 'sass:meta';
+@use 'sass:map';
 @use 'true' as *;
 @use 'lib' as *;
 
@@ -13,6 +15,35 @@ $correct-schema: (
   v-false: false,
   v-null-string: null,
   v-true-null: null,
+  v-list: (
+    1,
+    2,
+    3,
+  ),
+  v-map: (
+    a: 1,
+    b: 2,
+  ),
+);
+
+$i-correct: (
+  v-any: 'any',
+  v-keyword: 'keyword',
+  v-str: 'string',
+  v-empty-str: 'string',
+  v-num: 'number',
+  v-exact: 69,
+  v-hex: 'color',
+  v-true: 'bool',
+  v-false: 'bool',
+  v-null-string: 'null',
+  v-true-null: null,
+  v-list: 'list',
+  v-map: 'map',
+);
+
+$correct-units: (
+  v-unitless: 1234,
   v-ms: 1ms,
   v-s: 1s,
   v-deg: 1deg,
@@ -39,29 +70,10 @@ $correct-schema: (
   v-dpi: 1dpi,
   v-dpcm: 1dpcm,
   v-dppx: 1dppx,
-  v-list: (
-    1,
-    2,
-    3,
-  ),
-  v-map: (
-    a: 1,
-    b: 2,
-  ),
 );
 
-$i-correct: (
-  v-any: 'any',
-  v-keyword: 'keyword',
-  v-str: 'string',
-  v-empty-str: 'string',
-  v-num: 'number',
-  v-exact: 69,
-  v-hex: 'color',
-  v-true: 'bool',
-  v-false: 'bool',
-  v-null-string: 'null',
-  v-true-null: null,
+$i-units: (
+  v-unitless: 'unitless',
   v-ms: 'ms',
   v-s: 's',
   v-deg: 'deg',
@@ -88,8 +100,6 @@ $i-correct: (
   v-dpi: 'dpi',
   v-dpcm: 'dpcm',
   v-dppx: 'dppx',
-  v-list: 'list',
-  v-map: 'map',
 );
 
 @include test-module('Type') {
@@ -97,14 +107,31 @@ $i-correct: (
   // check() [Function]
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @include describe('Individual type checking') {
-    @each $key, $value in $correct-schema {
-      $i-value: map-get($i-correct, $key);
+    $schema: map.merge($correct-schema, $correct-units);
+    $interface: map.merge($i-correct, $i-units);
+
+    @each $key, $value in $schema {
+      $i-value: map-get($interface, $key);
 
       @include it('checks type "#{$i-value}"') {
         @include assert-true(check($value, $i-value));
       }
     }
   }
+
+  @include describe('Check that numbers do not give false positives') {
+    @each $key, $value in $correct-units {
+      $other-units: map.remove($correct-units, $key);
+      $i-value: map-get($i-units, $key);
+
+      @include it('checks that type "#{$i-value}" does not match with any other unit') {
+        @each $other-key, $other-value in $other-units {
+          @include assert-false(check($other-value, $i-value));
+        }
+      }
+    }
+  }
+
   @include describe('List of optional values') {
     @include it('checks for a list of correct values') {
       $schema: (
