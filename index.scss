@@ -256,6 +256,7 @@ $type-check-schemas: (
   string:         ( t-o: 'string'                   ),
   list:           ( t-o: 'list'                     ),
   map:            ( t-o: 'map'                      ),
+  unitless:       ( t-o: 'number',      u: ''       ),
   // Time
   ms:             ( t-o: 'number',      u: 'ms'     ),
   s:              ( t-o: 'number',      u: 's'      ),
