@@ -422,7 +422,7 @@ $type-check-schemas: (
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// This function converts a value of any type into string.
+/// This function converts a value of any type into a string.
 ///
 /// @param {any} $v
 ///   A value of any type.
@@ -457,8 +457,8 @@ $type-check-schemas: (
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// Returns the next key in a map given the current key. Returns null if `$current-key` is the last.
-/// It throws an error if the current key is not found in the map.
+/// Returns the next key in a map given the current key. It throws an error if the current key is not
+/// found in the map.
 ///
 /// @param {map} $map
 ///   The map to be searched.
@@ -467,9 +467,9 @@ $type-check-schemas: (
 ///   The current key in the map.
 ///
 /// @return {string/null/-1}
-///   - `string` The key that is next.
-///   - `null` The current key is the last, so there is a null key next.
-///   - `-1` Invalid argument types or key not found.
+///   `string`: The key that is next.
+///   `null`: The current key is the last, so there is a null key next.
+///   `-1`: Invalid argument types or key not found.
 ///
 /// @group basics
 ///
@@ -487,4 +487,44 @@ $type-check-schemas: (
     @return list.nth($keys, $current-index + 1);
   }
   @return -1;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin optionally applies a media query.
+///
+/// @param {string/null} $mq
+///   If this value is null, simply returns the content.
+///
+/// @group basics
+///
+@mixin quick-mq($mq) {
+  @if check($mq, (string, null)) {
+    @if $mq == null {
+      @content;
+    } @else {
+      @media #{$mq} {
+        @content;
+      }
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin optionally applies a pseudoclass.
+///
+/// @param {string/null} $psuedo
+///   If this value is null, simply returns the content.
+///
+/// @group basics
+///
+@mixin quick-pseudo($pseudo) {
+  @if check($pseudo, (string, null)) {
+    @if $pseudo == null {
+      @content;
+    } @else {
+      &#{$pseudo} {
+        @content;
+      }
+    }
+  }
 }
