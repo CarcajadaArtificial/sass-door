@@ -22,7 +22,11 @@ To use this library, one must simply import it using the `@use` sass keyword and
 
 [Read the reference](https://carcajadaartificial.github.io/sass-door/)
 
-### Interface type validation
+---
+## Type Safety
+*Coming soon*
+
+### Basic argument type
 With a few functions, a big map, and a little imagination we can simulate type safety right here in SCSS. _If only Scss would become rusty..._ So let's see the first example, say a simple function like one that squares a number. Given a scope for only number types (there won't be squaring strings, booleans, colors, etc) and a missing `@return` expression on the flow where the type does not match.
 ```scss
 @use 'path/to/sass-door' as *;
@@ -34,8 +38,20 @@ With a few functions, a big map, and a little imagination we can simulate type s
 }
 ```
 
-### Type validation and unit testing
-Whenever unit tests come to mind in SCSS code, the only option is [True by Oddbird](github.com/oddbird/true). It is a fantastic library that, alone, makes unit testing available in Sass. 
+### Multiple argument types
+*Coming soon*
+```scss
+@use 'path/to/sass-door' as *;
+```
+
+### Interface types
+*Coming soon*
+```scss
+@use 'path/to/sass-door' as *;
+```
+
+### Types in unit testing
+Whenever unit tests come to mind in SCSS code, the only option is [True by Oddbird](github.com/oddbird/true). It is a fantastic library that, alone, makes unit testing available in Sass. Also, this is a modified version of the example function `sq()`, now the flow where the type does not match is accounted for and must be tested.
 ```scss
 @use 'path/to/sass-door' as *;
 @use 'true' as *;
@@ -66,6 +82,16 @@ Number functions
     ✔ Correctly squares a number
     ✔ Returns -1 with types other than number
 ```
+
+### Type safety and mixins
+*Coming soon*
+```scss
+@use 'path/to/sass-door' as *;
+```
+
+---
+## Error Handling
+*Coming soon*
 
 ### Error handling in functions
 Once imported, the error-handling functions become available for usage. For example, this is how it would look like this:
@@ -113,7 +139,7 @@ Error: "Incorrect input"
    ╵
    path/to/index.scss 5:5 example-mixin()
 ```
-As an additional feature, the error message string is also applied as a custom CSS property called `--scss-error`. This is also useful for unit testing mixins.
+As an additional feature, the error messa ge string is also applied as a custom CSS property called `--scss-error`. This is also useful for unit testing mixins.
 ```scss
 .example {
   @include example-mixin(false);
@@ -123,6 +149,17 @@ As an additional feature, the error message string is also applied as a custom C
 // }
 ```
 
+---
+## Sass Basics
+*Coming soon*
+
+- `@f` [`capitalize()`](carcajadaartificial.github.io/sass-door/#function-capitalize) - Turns the first letter of a word into uppercase.
+- `@f` [`to-string()`](carcajadaartificial.github.io/sass-door/#function-to-string) - This function converts a value of any type into a string.
+- `@f` [`map-next-key()`](carcajadaartificial.github.io/sass-door/#function-map-next-key) - Returns the next key in a map given the current key. 
+- `@m` [`quick-mq()`]() - This mixin optionally applies a media query.
+- `@m` [`quick-pseudo()`]() - This mixin optionally applies a pseudoclass.
+
+---
 ## Configuration
 I would recommend in your file structure have a `/lib/` directory where you can import Sass Door's index scss. This snippet contains all configurable variables with their default value. [Read more](https://carcajadaartificial.github.io/sass-door/#config-variable)
 ```scss

@@ -1,14 +1,14 @@
 # Changelog
 
-## `v0.0.19`
+## `v0.0.20`
 
-- Added the `unitless` type.
-- Included better unit tests for the new `unitless` type.
-- Added type validation usage documentation.
+- Updated README
+- Added `quick-mq()` and `quick-pseudo()` mixins.
 
 ## Goals for `v0.1.0`
   - [ ] Document usage
     - [x] Type validation usage
+    - [ ] Mixin type validation
     - [ ] Sass basics
   - [x] Sass basics
     - [x] to-string(any)
