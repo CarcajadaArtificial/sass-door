@@ -1,9 +1,9 @@
 # Changelog
 
-## `v0.0.20`
+## `v0.0.21`
 
-- Updated README
-- Added `quick-mq()` and `quick-pseudo()` mixins.
+- Fixed the `Declarations may only be used within style rules.` error.
+- Updated README.md
 
 ## Goals for `v0.1.0`
   - [ ] Document usage

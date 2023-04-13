@@ -180,7 +180,9 @@ $mixin-style-name: '--scss-error' !default;
 /// @group throw
 ///
 @mixin throw($message, $catch: $catching-enabled) {
-  #{$mixin-style-name}: '#{throw($message, $catch)}';
+  .#{$mixin-style-name} {
+    #{$mixin-style-name}: '#{throw($message, $catch)}';
+  }
 }
 
 // =====================================================================================================
