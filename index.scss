@@ -492,6 +492,57 @@ $type-check-schemas: (
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Removes the element at the given index from a list.
+///
+/// @param {list} $list
+///   The list from which to remove an element.
+///
+/// @param {unitless} $nth
+///   The index of the element to remove, negative indexes are allowed for counting from the end.
+///
+/// @return {list}
+///   The new list with the element removed
+///
+/// @group basics
+///
+@function list-remove($list, $nth) {
+  $result: ();
+  $nth: if($nth < 0, list.length($list) + $nth + 1, $nth);
+  $bracketed: list.is-bracketed($list);
+  $separator: list.separator($list);
+  @for $i from 1 through list.length($list) {
+    @if $i != $nth {
+      $result: append($result, list.nth($list, $i));
+    }
+  }
+  @return join((), $result, $separator, $bracketed);
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Returns a new list containing the first n elements of the given list.
+///
+/// @param {list} $list
+///   The original list.
+///
+/// @param {unitless} $nth
+///   The number of elements to include in the new list.
+///
+/// @return {list}
+///   The new list containing the first n elements of the original list.
+///
+/// @group basics
+///
+@function list-cut($list, $nth) {
+  $new-list: ();
+
+  @for $i from 1 through $nth {
+    $new-list: append($new-list, nth($list, $i));
+  }
+
+  @return $new-list;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This mixin optionally applies a media query.
 ///
 /// @param {string/null} $mq

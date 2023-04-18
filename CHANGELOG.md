@@ -1,9 +1,9 @@
 # Changelog
 
-## `v0.0.21`
+## `v0.0.22`
 
-- Fixed the `Declarations may only be used within style rules.` error.
-- Updated README.md
+- Added the `list-remove()` function.
+- Added the `list-cut()` function.
 
 ## Goals for `v0.1.0`
   - [ ] Document usage
