@@ -1,9 +1,9 @@
 # Changelog
 
-## `v0.0.20`
+## `v0.0.22`
 
-- Updated README
-- Added `quick-mq()` and `quick-pseudo()` mixins.
+- Added the `list-remove()` function.
+- Added the `list-cut()` function.
 
 ## Goals for `v0.1.0`
   - [ ] Document usage

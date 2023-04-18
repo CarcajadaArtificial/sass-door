@@ -169,3 +169,6 @@ I would recommend in your file structure have a `/lib/` directory where you can 
   $mixin-style-name: '--scss-error',
 );
 ```
+
+
+This mixin simplifies the complex process of building a cohesive theme.
