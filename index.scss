@@ -581,3 +581,32 @@ $type-check-schemas: (
     }
   }
 }
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin creates a selector based on the value of the `$conditional` variable, applying the
+/// content to either `$a` or `$b` depending on the condition.
+///
+/// @param {string} $a
+///   The applied selector when $contitional is true.
+///
+/// @param {string} $b
+///   The applied selector when $contitional is false.
+///
+/// @param {bool} $conditional
+///   The conditional value that determines what selector will be applied.
+///
+/// @group basics
+///
+/// @todo parameter type validation
+///
+@mixin conditional-selector($a, $b, $conditional) {
+  @if $conditional {
+    #{$a} {
+      @content;
+    }
+  } @else {
+    #{$b} {
+      @content;
+    }
+  }
+}
