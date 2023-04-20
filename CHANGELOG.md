@@ -1,9 +1,8 @@
 # Changelog
 
-## `v0.0.22`
+## `v0.0.23`
 
-- Added the `list-remove()` function.
-- Added the `list-cut()` function.
+- Added the `conditional-selector()` mixin.
 
 ## Goals for `v0.1.0`
   - [ ] Document usage
