@@ -597,16 +597,16 @@ $type-check-schemas: (
 ///
 /// @group basics
 ///
-/// @todo parameter type validation
-///
 @mixin conditional-selector($a, $b, $conditional) {
-  @if $conditional {
-    #{$a} {
-      @content;
-    }
-  } @else {
-    #{$b} {
-      @content;
+  @if check($a, 'string') and check($b, 'string') and check($conditional, 'boolean') {
+    @if $conditional {
+      #{$a} {
+        @content;
+      }
+    } @else {
+      #{$b} {
+        @content;
+      }
     }
   }
 }
