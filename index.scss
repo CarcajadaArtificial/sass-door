@@ -156,9 +156,6 @@ $mixin-style-name: '--scss-error' !default;
 /// @return {string}
 ///   Returns the `$message` by default.
 ///
-/// @throw
-///   The global throw, this is what every exception will use to handle an error.
-///
 /// @group throw
 ///
 @function throw($message: '', $catch: $catching-enabled) {
@@ -295,41 +292,40 @@ $type-check-schemas: (
 ) !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// This function varifies the individual type of a value and compares it to the interfaced type.
+/// This function varifies the individual type of a value and compares it to the selected type.
 ///
 /// @param {any} $value
 ///   The value that will be type verified.
 ///
-/// @param {any} $i-value
-///   The type of the value from the interface.
+/// @param {any} $type
+///   The type the value must be to pass the check.
 ///
-/// @return {bool} True if the value passes the check, false if it doesn't.
-///
-/// @throw
+/// @return {bool}
+///   True if the value passes the check, false if it doesn't.
 ///
 /// @group type
 ///
-@function check-individual-type($value, $i-value, $quiet: false) {
-  @if not map-has-key($type-check-schemas, $i-value) {
-    @if $value == null and ($i-value == 'null' or $i-value == null) {
+@function check-individual-type($value, $type, $quiet: false) {
+  @if not map-has-key($type-check-schemas, $type) {
+    @if $value == null and ($type == 'null' or $type == null) {
       @return true;
     }
     /// @todo Error handling
-    @return $value == $i-value;
+    @return $value == $type;
   } @else {
-    $type-check-schema: map-get($type-check-schemas, $i-value);
+    $type-check-schema: map-get($type-check-schemas, $type);
     $typeof: map-get($type-check-schema, 't-o');
     $unit: map-get($type-check-schema, 'u');
 
     @if $typeof != null and not t-o($value, $typeof) {
       @if not $quiet {
-        $error: throw(value-msg('#{to-string($value)} (type: #{meta.type-of($value)})', $i-value));
+        $error: throw(value-msg('#{to-string($value)} (type: #{meta.type-of($value)})', $type));
       }
       @return false;
     }
     @if $unit != null and not u($value, $unit) {
       @if not $quiet {
-        $error: throw(value-msg('#{to-string($value)} (unit: #{unit($value)})', $i-value));
+        $error: throw(value-msg('#{to-string($value)} (unit: #{unit($value)})', $type));
       }
       @return false;
     }
@@ -343,57 +339,94 @@ $type-check-schemas: (
 /// @param {any} $value
 ///   The value that will be type verified.
 ///
-/// @param {list} $i-value
+/// @param {list} $type-list
 ///   The list of possible types for the value.
 ///
 /// @returns {bool}
 ///   True if the value passes the check, false if it doesn't.
 ///
-/// @throw
-///
 /// @group type
 ///
-@function check-list-type($value, $i-value) {
+@function check-list-type($value, $type-list) {
   $match: false;
-  @each $type in $i-value {
+  @each $type in $type-list {
     @if check-individual-type($value, $type, true) {
       $match: true;
     }
   }
   @if not $match {
-    $error: throw(value-msg('#{to-string($value)} (type: #{meta.type-of($value)})', $i-value));
+    $error: throw(value-msg('#{to-string($value)} (type: #{meta.type-of($value)})', $type-list));
   }
   @return $match;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// This function verifies the types of the values inside a map. All the keys must match as well.
 ///
-/// @param {any} $value
-///   This map contains the values planned in the `$interface` map.
-///
-/// @param {any} $interface
-///   This map contains the type planning of the map `$value`.
+/// @param {any} $map
+/// @param {any} $type
 ///
 /// @returns {bool}
-///   True if the value perfectly matches the interface, false if it doesn't.
 ///
 /// @group type
 ///
-@function check($value, $interface) {
-  @if t-o($interface, 'list') and check-list-type($value, $interface) {
-    @return true;
-  } @else if t-o($interface, 'map') {
-    $map: $value;
-    @each $key, $value in $map {
-      $i-value: map-get($interface, $key);
-      @if not check($value, $i-value) {
+/// @todo check that all keys in $value match the keys in $type
+/// @todo if $type is a map, check that $value is a map as well
+/// @todo complete documentation.
+/// .
+@function check-map-type($map, $type) {
+  @each $key, $value in $map {
+    @if not check($value, map-get($type, $key)) {
+      @return false;
+    }
+  }
+  @return true;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @todo unit test
+/// @todo complete documentation
+///
+@function check-recurring-type($value, $type) {
+  @if t-o($value, 'list') {
+    @each $list-value in $value {
+      @if not check-individual-type($list-value, $type, true) {
         @return false;
       }
+      @return true;
     }
-    @return true;
+  } @else if t-o($value, 'map') {
+    @each $key, $map-value in $value {
+      @if not check-individual-type($map-value, $type, true) {
+        @return false;
+      }
+      @return true;
+    }
   } @else {
-    @return check-individual-type($value, $interface);
+    @return false;
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @param {any} $value
+/// @param {any} $type
+///
+/// @returns {bool}
+///
+/// @group type
+///
+/// @todo complete documentation.
+///
+@function check($value, $type, $recurrent-type: false) {
+  @if $recurrent-type {
+    // @return check-recurring-type($value, $type)
+  } @else if t-o($type, 'list') {
+    @return check-list-type($value, $type);
+  } @else if t-o($type, 'map') {
+    @return check-map-type($value, $type);
+  } @else {
+    @return check-individual-type($value, $type);
   }
 }
 
