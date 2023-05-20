@@ -383,9 +383,16 @@ $type-check-schemas: (
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Checks if the values in a list or map have a recurring type.
 ///
-/// @todo unit test
-/// @todo complete documentation
+/// @param {any} $value
+///   The list or map to check for recurring type.
+///
+/// @param {any} $type
+///   The type that every item inside the list or map must be.
+///
+/// @returns {bool}
+///   Returns `true` if the values have a recurring type, otherwise `false`.
 ///
 @function check-recurring-type($value, $type) {
   @if t-o($value, 'list') {
@@ -393,15 +400,15 @@ $type-check-schemas: (
       @if not check-individual-type($list-value, $type, true) {
         @return false;
       }
-      @return true;
     }
+    @return true;
   } @else if t-o($value, 'map') {
     @each $key, $map-value in $value {
       @if not check-individual-type($map-value, $type, true) {
         @return false;
       }
-      @return true;
     }
+    @return true;
   } @else {
     @return false;
   }
@@ -420,7 +427,7 @@ $type-check-schemas: (
 ///
 @function check($value, $type, $recurrent-type: false) {
   @if $recurrent-type {
-    // @return check-recurring-type($value, $type)
+    @return check-recurring-type($value, $type);
   } @else if t-o($type, 'list') {
     @return check-list-type($value, $type);
   } @else if t-o($type, 'map') {

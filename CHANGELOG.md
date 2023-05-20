@@ -1,15 +1,12 @@
 # Changelog
 
-## `v0.0.25`
+## `v0.0.26`
 
-- Added a bunch of `@todos`
-- Removed the `@throw` sassdoc tag.
-- Renamed the `$interface` and `$i-value` variables to something related to "type".
-- Created the `check-map-type` function for refactoring nested code.
-- Created the `check-recurrent-type` function for the feature of recurrent types.
+- Implemented the `check-recurrent-type` function and unit tests.
+- Added documentation.
 
 ## Goals for `v0.1.0`
-  - To-dos: **7**
+  - To-dos: **5**
   - [ ] Document usage
     - [x] Type validation usage
     - [ ] Mixin type validation

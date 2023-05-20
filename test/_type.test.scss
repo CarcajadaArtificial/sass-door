@@ -213,4 +213,21 @@ $i-units: (
       @include assert-false(check($schema, $interface));
     }
   }
+
+  @include describe('Recurrent types') {
+    @include it('checks for recurrent types in a map') {
+      $schema: (
+        a: 10px,
+        b: 20px,
+        c: 30px,
+      );
+
+      @include assert-true(check($schema, 'px', true));
+    }
+    @include it('checks for recurrent types in a map') {
+      $schema: (10px, 20px, 30px);
+
+      @include assert-true(check($schema, 'px', true));
+    }
+  }
 }
