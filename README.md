@@ -32,13 +32,15 @@ With a few functions, a big map, and a little imagination we can simulate type s
 @use 'path/to/sass-door' as *;
 
 @function sq($n) {
-  @if check($n, 'number') {
-    @return $n * $n;
+  @if not check($n, 'number') {
+    @return -1;
   }
+  
+  @return $n * $n;
 }
 ```
 
-### Multiple argument types
+### Union types
 *Coming soon*
 ```scss
 @use 'path/to/sass-door' as *;
@@ -57,11 +59,10 @@ Whenever unit tests come to mind in SCSS code, the only option is [True by Oddbi
 @use 'true' as *;
 
 @function sq($n) {
-  @if check($n, 'number') {
-    @return $n * $n;
-  } @else {
+  @if not check($n, 'number') {
     @return -1;
   }
+  @return $n * $n;
 }
 
 @include test-module('Number functions') {
@@ -151,9 +152,9 @@ As an additional feature, the error messa ge string is also applied as a custom 
 
 ---
 ## Sass Basics
-*Coming soon*
+Sass is a niche problem as a language with limited features. My opinion is that it can be much more. These are a set of functions and mixins (abbreviated as `@f` and `@m`) that do things that aren't available in the official SCSS modules. I just think they're neat.
 
-- `@f` [`capitalize()`](carcajadaartificial.github.io/sass-door/#function-capitalize) - Turns the first letter of a word into uppercase.
+- `@f` [`capitalize()`](carcajadaartificial.github.io/sass-door/#function-capitalize) - Turns the first letter of a string into uppercase.
 - `@f` [`to-string()`](carcajadaartificial.github.io/sass-door/#function-to-string) - This function converts a value of any type into a string.
 - `@f` [`map-next-key()`](carcajadaartificial.github.io/sass-door/#function-map-next-key) - Returns the next key in a map given the current key. 
 - `@m` [`quick-mq()`]() - This mixin optionally applies a media query.
@@ -169,6 +170,3 @@ I would recommend in your file structure have a `/lib/` directory where you can 
   $mixin-style-name: '--scss-error',
 );
 ```
-
-
-This mixin simplifies the complex process of building a cohesive theme.

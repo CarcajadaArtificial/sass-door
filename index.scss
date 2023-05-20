@@ -347,7 +347,7 @@ $type-check-schemas: (
 ///
 /// @group type
 ///
-@function check-list-type($value, $type-list) {
+@function check-union-type($value, $type-list) {
   $match: false;
   @each $type in $type-list {
     @if check-individual-type($value, $type, true) {
@@ -429,7 +429,7 @@ $type-check-schemas: (
   @if $recurrent-type {
     @return check-recurring-type($value, $type);
   } @else if t-o($type, 'list') {
-    @return check-list-type($value, $type);
+    @return check-union-type($value, $type);
   } @else if t-o($type, 'map') {
     @return check-map-type($value, $type);
   } @else {
