@@ -395,9 +395,17 @@ $type-check-schemas: (
 ///   Returns `true` if the values have a recurring type, otherwise `false`.
 ///
 @function check-recurring-type($value, $type) {
-  @if t-o($value, 'list') {
+  @if t-o($value, 'list') and not t-o($type, 'map') {
     @each $list-value in $value {
       @if not check-individual-type($list-value, $type, true) {
+        @return false;
+      }
+    }
+    @return true;
+  } @else if t-o($value, 'list') and t-o($type, 'map') {
+    @each $list-value in $value {
+      @if not check-map-type($list-value, $type) {
+        @debug $list-value;
         @return false;
       }
     }
