@@ -1,8 +1,8 @@
 # Changelog
 
-## `v0.0.28`
+## `v0.0.29`
 
-- Fixed 'boolean' type to the correct 'bool'.
+- Fixed the case on recurrent types when the type is an interface.
 
 ## Goals for `v0.1.0`
   - To-dos: **5**
