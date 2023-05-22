@@ -638,7 +638,7 @@ $type-check-schemas: (
 /// @group basics
 ///
 @mixin conditional-selector($a, $b, $conditional) {
-  @if check($a, 'string') and check($b, 'string') and check($conditional, 'boolean') {
+  @if check($a, 'string') and check($b, 'string') and check($conditional, 'bool') {
     @if $conditional {
       #{$a} {
         @content;

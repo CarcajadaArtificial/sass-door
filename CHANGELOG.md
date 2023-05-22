@@ -1,9 +1,8 @@
 # Changelog
 
-## `v0.0.27`
+## `v0.0.28`
 
-- Updated README
-- Renamed the `check-list-type` function to `check-union-type`.
+- Fixed 'boolean' type to the correct 'bool'.
 
 ## Goals for `v0.1.0`
   - To-dos: **5**
