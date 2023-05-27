@@ -1,11 +1,12 @@
 # Changelog
 
-## `v0.0.29`
+## `v0.0.30`
 
-- Fixed the case on recurrent types when the type is an interface.
+- Added a bunch of `@todo's`.
+- Updated `~/README.md`.
 
 ## Goals for `v0.1.0`
-  - To-dos: **5**
+  - To-dos: **15**
   - [ ] Document usage
     - [ ] Type validation usage
       - [ ] Single types

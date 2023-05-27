@@ -95,22 +95,23 @@ Number functions
 *Coming soon*
 
 ### Error handling in functions
-Once imported, the error-handling functions become available for usage. For example, this is how it would look like this:
+Once imported, the error-handling functions become available for usage. For example, this is how it would look like:
 ```scss
 @use 'path/to/lib/sass-door.scss' as *;
 
 @function example-function($ok) {
   @if not $ok {
-    @return throw('Incorrect input');
+    $error: throw('Incorrect input');
+    @return false;
   }
-  @return null;
+  @return true;
 }
 ```
 And once the `throw()` happens, it would look like this in the terminal:
 ```bash
 Error: "Incorrect input"
   ╷
-5 │     @return throw('Incorrect input');
+5 │     $error: throw('Incorrect input');
   │             ^^^^^^^^^^^^^^^^^^^^^^^^
   ╵
   path/to/index.scss 5:13 example-function()
@@ -154,11 +155,14 @@ As an additional feature, the error messa ge string is also applied as a custom 
 ## Sass Basics
 Sass is a niche problem as a language with limited features. My opinion is that it can be much more. These are a set of functions and mixins (abbreviated as `@f` and `@m`) that do things that aren't available in the official SCSS modules. I just think they're neat.
 
-- `@f` [`capitalize()`](carcajadaartificial.github.io/sass-door/#function-capitalize) - Turns the first letter of a string into uppercase.
-- `@f` [`to-string()`](carcajadaartificial.github.io/sass-door/#function-to-string) - This function converts a value of any type into a string.
-- `@f` [`map-next-key()`](carcajadaartificial.github.io/sass-door/#function-map-next-key) - Returns the next key in a map given the current key. 
-- `@m` [`quick-mq()`]() - This mixin optionally applies a media query.
-- `@m` [`quick-pseudo()`]() - This mixin optionally applies a pseudoclass.
+- `@f` [`capitalize()`]() - Turns the first letter of a string into uppercase.
+- `@f` [`to-string()`]() - This function converts a value of any type into a string.
+- `@f` [`map-next-key()`]() - Returns the next key in a map given the current key. 
+- `@f` [`list-remove()`]() - Removes the element at the given index from a list.
+- `@f` [`list-cut()`]() - Returns a new list containing the first _n_ elements of the given list.
+- `@m` [`quick-mq()`]() - Optionally applies a media query.
+- `@m` [`quick-pseudo()`]() - Optionally applies a pseudoclass.
+- `@m` [`conditional-selector()`]() - Creates a selector based on a conditional value.
 
 ---
 ## Configuration

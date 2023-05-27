@@ -77,6 +77,8 @@
 ///
 /// @group shorthand
 ///
+/// @todo If $t is null, return the resulting string from `meta.type-of($v)`.
+///
 @function t-o($v, $t) {
   @return meta.type-of($v) == $t;
 }
@@ -464,6 +466,8 @@ $type-check-schemas: (
 ///
 /// @group basics
 ///
+/// @todo Refactor parameter validation.
+///
 @function capitalize($str) {
   @if check($str, 'string') {
     @return to-upper-case(str-slice($str, 1, 1)) + str-slice($str, 2);
@@ -481,6 +485,8 @@ $type-check-schemas: (
 ///   The value $v converted to string.
 ///
 /// @group basics
+///
+/// @todo Add a `$separator` parameter for lists
 ///
 @function to-string($v) {
   @if $v == null {
@@ -500,6 +506,7 @@ $type-check-schemas: (
   } @else if t-o($v, 'map') {
     $acum: '(';
     @each $key, $value in $v {
+      /// @todo In the last iteration, avoid the ',' at the end of the string.
       $acum: '#{$acum}#{$key}:#{to-string($value)},';
     }
     @return '#{$acum})';
@@ -522,6 +529,8 @@ $type-check-schemas: (
 ///   `-1`: Invalid argument types or key not found.
 ///
 /// @group basics
+///
+/// @todo Refactor parameter validation.
 ///
 @function map-next-key($map, $current-key) {
   @if check($map, 'map') and check($current-key, 'string') {
@@ -553,6 +562,8 @@ $type-check-schemas: (
 ///
 /// @group basics
 ///
+/// @todo Parameter validation
+///
 @function list-remove($list, $nth) {
   $result: ();
   $nth: if($nth < 0, list.length($list) + $nth + 1, $nth);
@@ -580,6 +591,8 @@ $type-check-schemas: (
 ///
 /// @group basics
 ///
+/// @todo Parameter validation
+///
 @function list-cut($list, $nth) {
   $new-list: ();
 
@@ -597,6 +610,8 @@ $type-check-schemas: (
 ///   If this value is null, simply returns the content.
 ///
 /// @group basics
+///
+/// @todo Handle the exception path of the `check()` function.
 ///
 @mixin quick-mq($mq) {
   @if check($mq, (string, null)) {
@@ -617,6 +632,8 @@ $type-check-schemas: (
 ///   If this value is null, simply returns the content.
 ///
 /// @group basics
+///
+/// @todo Handle the exception path of the `check()` function.
 ///
 @mixin quick-pseudo($pseudo) {
   @if check($pseudo, (string, null)) {
@@ -644,6 +661,8 @@ $type-check-schemas: (
 ///   The conditional value that determines what selector will be applied.
 ///
 /// @group basics
+///
+/// @todo Handle the exception path of the `check()` function.
 ///
 @mixin conditional-selector($a, $b, $conditional) {
   @if check($a, 'string') and check($b, 'string') and check($conditional, 'bool') {
