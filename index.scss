@@ -69,18 +69,22 @@
 /// @param {any} $v
 ///   The value whose type is to be compared.
 ///
-/// @param {string} $t
+/// @param {string|null} $t [null]
 ///   The expected type for the value.
 ///
-/// @return {bool}
+/// @return {bool|string}
 ///   A bool for a type match confirmation.
 ///
 /// @group shorthand
 ///
-/// @todo If $t is null, return the resulting string from `meta.type-of($v)`.
-///
-@function t-o($v, $t) {
-  @return meta.type-of($v) == $t;
+@function t-o($v, $t: null) {
+  @if $t == null {
+    @return meta.type-of($v);
+  } @else if meta.type-of($t) == 'string' {
+    @return meta.type-of($v) == $t;
+  } @else {
+    @return null;
+  }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -321,7 +325,7 @@ $type-check-schemas: (
 
     @if $typeof != null and not t-o($value, $typeof) {
       @if not $quiet {
-        $error: throw(value-msg('#{to-string($value)} (type: #{meta.type-of($value)})', $type));
+        $error: throw(value-msg('#{to-string($value)} (type: #{t-o($value)})', $type));
       }
       @return false;
     }
@@ -357,7 +361,7 @@ $type-check-schemas: (
     }
   }
   @if not $match {
-    $error: throw(value-msg('#{to-string($value)} (type: #{meta.type-of($value)})', $type-list));
+    $error: throw(value-msg('#{to-string($value)} (type: #{t-o($value)})', $type-list));
   }
   @return $match;
 }
@@ -426,6 +430,7 @@ $type-check-schemas: (
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ///
+///
 /// @param {any} $value
 /// @param {any} $type
 ///
@@ -486,7 +491,8 @@ $type-check-schemas: (
 ///
 /// @group basics
 ///
-/// @todo Add a `$separator` parameter for lists
+/// @todo Find what is the list's separator and use it in the string.
+/// @todo In the last iteration, avoid the ',' at the end of the string (lists and maps).
 ///
 @function to-string($v) {
   @if $v == null {
@@ -496,7 +502,7 @@ $type-check-schemas: (
   } @else if t-o($v, 'number') or t-o($v, 'bool') or t-o($v, 'color') {
     @return #{$v};
   } @else if t-o($v, 'function') or t-o($v, 'arglist') or t-o($v, 'calculation') {
-    @return meta.type-of($v);
+    @return t-o($v);
   } @else if t-o($v, 'list') {
     $acum: '(';
     @each $value in $v {
@@ -506,7 +512,6 @@ $type-check-schemas: (
   } @else if t-o($v, 'map') {
     $acum: '(';
     @each $key, $value in $v {
-      /// @todo In the last iteration, avoid the ',' at the end of the string.
       $acum: '#{$acum}#{$key}:#{to-string($value)},';
     }
     @return '#{$acum})';

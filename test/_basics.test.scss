@@ -29,7 +29,7 @@
       @include assert-equal('(a,b,c,(a,b,c,),)', to-string(('a', 'b', 'c', ('a', 'b', 'c'))));
     }
   }
-  @include describe('String convertion of lists') {
+  @include describe('String convertion of maps') {
     @include it('converts a map of strings') {
       @include assert-equal(
         '(a:A,b:B,c:C,)',

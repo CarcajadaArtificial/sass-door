@@ -1,9 +1,9 @@
 # Changelog
 
-## `v0.0.30`
+## `v0.0.31`
 
-- Added a bunch of `@todo's`.
-- Updated `~/README.md`.
+- Updated the `t-o()` function to support an optional type (`$t`) parameter to return the type string of `$v`.
+- Fixed typo in `~/test/_basics.test.scss`.
 
 ## Goals for `v0.1.0`
   - To-dos: **15**
