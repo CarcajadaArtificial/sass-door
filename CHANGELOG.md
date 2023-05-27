@@ -1,12 +1,15 @@
 # Changelog
 
-## `v0.0.31`
+## `v0.0.32`
 
-- Updated the `t-o()` function to support an optional type (`$t`) parameter to return the type string of `$v`.
-- Fixed typo in `~/test/_basics.test.scss`.
+- Added the `separator-character()` function.
+- Fixed the function `to-string()` to print correctly the last element of a list and map.
+- Fixed the function `to-string()` to support correct separators in lists.
+- Refactored the funciton `capitalize()`.
+- Updated the unit tests for the functions `to-string()` and `capitalize()`. `~/test/_basics.test.scss`.
 
 ## Goals for `v0.1.0`
-  - To-dos: **15**
+  - To-dos: **11**
   - [ ] Document usage
     - [ ] Type validation usage
       - [ ] Single types

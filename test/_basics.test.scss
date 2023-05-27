@@ -20,19 +20,22 @@
   }
   @include describe('String convertion of lists') {
     @include it('converts a list of strings') {
-      @include assert-equal('(a,b,c,)', to-string(('a', 'b', 'c')));
+      @include assert-equal('(a,b,c)', to-string(('a', 'b', 'c')));
+    }
+    @include it('converts a list of strings with a space separator') {
+      @include assert-equal('(a b c)', to-string(('a' 'b' 'c')));
     }
     @include it('converts a list of other values') {
-      @include assert-equal('(1,true,#420420,)', to-string((1, true, #420420)));
+      @include assert-equal('(1,true,#420420)', to-string((1, true, #420420)));
     }
     @include it('converts a list of nested lists') {
-      @include assert-equal('(a,b,c,(a,b,c,),)', to-string(('a', 'b', 'c', ('a', 'b', 'c'))));
+      @include assert-equal('(a,b,c,(a,b,c))', to-string(('a', 'b', 'c', ('a', 'b', 'c'))));
     }
   }
   @include describe('String convertion of maps') {
     @include it('converts a map of strings') {
       @include assert-equal(
-        '(a:A,b:B,c:C,)',
+        '(a:A,b:B,c:C)',
         to-string(
           (
             a: 'A',
@@ -44,7 +47,7 @@
     }
     @include it('converts a map of other values') {
       @include assert-equal(
-        '(a:1,b:true,c:#420420,)',
+        '(a:1,b:true,c:#420420)',
         to-string(
           (
             a: 1,
@@ -56,7 +59,7 @@
     }
     @include it('converts a map of strings') {
       @include assert-equal(
-        '(a:A,b:B,c:C,d:(a:A,b:B,c:C,),)',
+        '(a:A,b:B,c:C,d:(a:A,b:B,c:C))',
         to-string(
           (
             a: 'A',
@@ -87,7 +90,7 @@
     }
     // Incorrect input
     @include it('[Value Error] Returns null') {
-      @include assert-equal(capitalize(0), null);
+      @include assert-equal(capitalize(0), '');
     }
   }
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -

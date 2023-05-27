@@ -64,7 +64,7 @@
 // =====================================================================================================
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-/// Short for `meta.type-of($v) == $t`
+/// Short for `meta.type-of($v)` or `meta.type-of($v) == $t`.
 ///
 /// @param {any} $v
 ///   The value whose type is to be compared.
@@ -466,18 +466,44 @@ $type-check-schemas: (
 /// @param {string} $str
 ///   The word that is going to be capitalized.
 ///
-/// @return {string/null}
-///   The same string but capitalized. Null if `$str` is not a string
+/// @return {string}
+///   The same string but capitalized. Returns `''` if `$str` is not valid.
 ///
 /// @group basics
 ///
-/// @todo Refactor parameter validation.
-///
 @function capitalize($str) {
-  @if check($str, 'string') {
-    @return to-upper-case(str-slice($str, 1, 1)) + str-slice($str, 2);
+  @if not check($str, 'string') {
+    @return '';
   }
-  @return null;
+
+  @return to-upper-case(str-slice($str, 1, 1)) + str-slice($str, 2);
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Returns the character value that corresponds with the separator "enum" built in sass.
+///
+/// @param {'comma'|'space'|'slash'} $separator
+///   The name of the separator that joins the items of a list.
+///
+/// @returns {','|' '|'/'|''}
+///   The character value corresponding to the separator name.
+///
+/// @group basics
+///
+@function separator-character($separator) {
+  @if not check($separator, ('comma', 'space', 'slash')) {
+    @return '';
+  }
+
+  @if ($separator == 'comma') {
+    @return ',';
+  } @else if($separator == 'space') {
+    @return ' ';
+  } @else if($separator == 'slash') {
+    @return '/';
+  }
+
+  @return '';
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -491,9 +517,6 @@ $type-check-schemas: (
 ///
 /// @group basics
 ///
-/// @todo Find what is the list's separator and use it in the string.
-/// @todo In the last iteration, avoid the ',' at the end of the string (lists and maps).
-///
 @function to-string($v) {
   @if $v == null {
     @return '';
@@ -504,15 +527,30 @@ $type-check-schemas: (
   } @else if t-o($v, 'function') or t-o($v, 'arglist') or t-o($v, 'calculation') {
     @return t-o($v);
   } @else if t-o($v, 'list') {
+    $separator: separator-character(list.separator($v));
     $acum: '(';
+    $count: 1;
+    $length: list.length($v);
     @each $value in $v {
-      $acum: '#{$acum}#{to-string($value)},';
+      @if $count < $length {
+        $count: $count + 1;
+        $acum: '#{$acum}#{to-string($value)}#{$separator}';
+      } @else {
+        $acum: '#{$acum}#{to-string($value)}';
+      }
     }
     @return '#{$acum})';
   } @else if t-o($v, 'map') {
     $acum: '(';
+    $count: 1;
+    $length: list.length(map.keys($v));
     @each $key, $value in $v {
-      $acum: '#{$acum}#{$key}:#{to-string($value)},';
+      @if $count < $length {
+        $count: $count + 1;
+        $acum: '#{$acum}#{$key}:#{to-string($value)},';
+      } @else {
+        $acum: '#{$acum}#{$key}:#{to-string($value)}';
+      }
     }
     @return '#{$acum})';
   }
