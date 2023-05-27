@@ -54,6 +54,7 @@
 @use 'sass:meta';
 @use 'sass:list';
 @use 'sass:map';
+@use 'sass:string';
 
 // =====================================================================================================
 //   ___ _            _   _                 _
@@ -72,7 +73,7 @@
 /// @param {string|null} $t [null]
 ///   The expected type for the value.
 ///
-/// @return {bool|string}
+/// @returns {bool|string}
 ///   A bool for a type match confirmation.
 ///
 /// @group shorthand
@@ -96,7 +97,7 @@
 /// @param {string} $t
 ///   The expected type for the value.
 ///
-/// @return {bool}
+/// @returns {bool}
 ///   A bool for a unit of measurement match confirmation.
 ///
 /// @group shorthand
@@ -114,13 +115,43 @@
 /// @param {arglist} $p
 ///   The list of parameters to be passed to the function.
 ///
-/// @return {any}
+/// @returns {any}
 ///   The returned value from calling $f.
 ///
 /// @group shorthand
 ///
 @function c($f, $p...) {
   @return meta.call($f, $p...);
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This is a short generic `length()` function.
+///
+/// @param {any} $v
+///   This value can by of any type.
+///
+/// @returns {number}
+///   Depending on the type of `$v` uses a different calculation for the length.
+///   - list: Returns `list.length($v)`
+///   - map: Returns `list.length(map.keys($v))`
+///   - string: Returns `string.length($v)`
+///   - null: Returns `0`
+///   - everything else: Returns `1`
+///
+/// @group shorthand
+///
+@function l($v) {
+  @if t-o($v, 'map') {
+    @return list.length(map.keys($v));
+  } @else if t-o($v, 'list') {
+    @return list.length($v);
+  } @else if t-o($v, 'string') {
+    @return string.length($v);
+  } @else if $v == null {
+    @return 0;
+  }
+
+  @return 1;
 }
 
 // =====================================================================================================
@@ -159,7 +190,7 @@ $mixin-style-name: '--scss-error' !default;
 /// @param {bool} $catch [$catching-enabled]
 ///   Throws @error if true.
 ///
-/// @return {string}
+/// @returns {string}
 ///   Returns the `$message` by default.
 ///
 /// @group throw
@@ -306,7 +337,7 @@ $type-check-schemas: (
 /// @param {any} $type
 ///   The type the value must be to pass the check.
 ///
-/// @return {bool}
+/// @returns {bool}
 ///   True if the value passes the check, false if it doesn't.
 ///
 /// @group type
@@ -367,24 +398,34 @@ $type-check-schemas: (
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function validates that map variables have the correct keys and value types.
 ///
 /// @param {any} $map
-/// @param {any} $type
+///   The map value that will be type verified.
+///
+/// @param {any} $interface
+///   A map that specifies the types and keys of `$map`.
 ///
 /// @returns {bool}
+///   True if the value passes the check, false if it doesn't.
 ///
 /// @group type
-///
-/// @todo check that all keys in $value match the keys in $type
-/// @todo if $type is a map, check that $value is a map as well
-/// @todo complete documentation.
 /// .
-@function check-map-type($map, $type) {
+@function check-interface-type($map, $interface) {
+  @if not t-o($map, 'map') {
+    $error: throw(value-msg($map, 'map'));
+    @return false;
+  } @else if not l($map) == l($interface) {
+    $error: throw(value-msg(map.keys($map), map.keys($interface)));
+    @return false;
+  }
+
   @each $key, $value in $map {
-    @if not check($value, map-get($type, $key)) {
+    @if not check($value, map-get($interface, $key)) {
       @return false;
     }
   }
+
   @return true;
 }
 
@@ -410,7 +451,7 @@ $type-check-schemas: (
     @return true;
   } @else if t-o($value, 'list') and t-o($type, 'map') {
     @each $list-value in $value {
-      @if not check-map-type($list-value, $type) {
+      @if not check-interface-type($list-value, $type) {
         @debug $list-value;
         @return false;
       }
@@ -446,7 +487,7 @@ $type-check-schemas: (
   } @else if t-o($type, 'list') {
     @return check-union-type($value, $type);
   } @else if t-o($type, 'map') {
-    @return check-map-type($value, $type);
+    @return check-interface-type($value, $type);
   } @else {
     @return check-individual-type($value, $type);
   }
@@ -466,7 +507,7 @@ $type-check-schemas: (
 /// @param {string} $str
 ///   The word that is going to be capitalized.
 ///
-/// @return {string}
+/// @returns {string}
 ///   The same string but capitalized. Returns `''` if `$str` is not valid.
 ///
 /// @group basics
@@ -512,10 +553,12 @@ $type-check-schemas: (
 /// @param {any} $v
 ///   A value of any type.
 ///
-/// @return {string}
+/// @returns {string}
 ///   The value $v converted to string.
 ///
 /// @group basics
+///
+/// @todo Cases for function, arglist and calculation type.
 ///
 @function to-string($v) {
   @if $v == null {
@@ -530,7 +573,7 @@ $type-check-schemas: (
     $separator: separator-character(list.separator($v));
     $acum: '(';
     $count: 1;
-    $length: list.length($v);
+    $length: l($v);
     @each $value in $v {
       @if $count < $length {
         $count: $count + 1;
@@ -543,7 +586,7 @@ $type-check-schemas: (
   } @else if t-o($v, 'map') {
     $acum: '(';
     $count: 1;
-    $length: list.length(map.keys($v));
+    $length: l($v);
     @each $key, $value in $v {
       @if $count < $length {
         $count: $count + 1;
@@ -566,7 +609,7 @@ $type-check-schemas: (
 /// @param {string} $current-key
 ///   The current key in the map.
 ///
-/// @return {string/null/-1}
+/// @returns {string/null/-1}
 ///   `string`: The key that is next.
 ///   `null`: The current key is the last, so there is a null key next.
 ///   `-1`: Invalid argument types or key not found.
@@ -583,7 +626,7 @@ $type-check-schemas: (
     }
     $keys: map.keys($map);
     $current-index: list.index($keys, $current-key);
-    @if $current-index == list.length($keys) {
+    @if $current-index == l($keys) {
       @return null;
     }
     @return list.nth($keys, $current-index + 1);
@@ -600,7 +643,7 @@ $type-check-schemas: (
 /// @param {unitless} $nth
 ///   The index of the element to remove, negative indexes are allowed for counting from the end.
 ///
-/// @return {list}
+/// @returns {list}
 ///   The new list with the element removed
 ///
 /// @group basics
@@ -609,10 +652,10 @@ $type-check-schemas: (
 ///
 @function list-remove($list, $nth) {
   $result: ();
-  $nth: if($nth < 0, list.length($list) + $nth + 1, $nth);
+  $nth: if($nth < 0, l($list) + $nth + 1, $nth);
   $bracketed: list.is-bracketed($list);
   $separator: list.separator($list);
-  @for $i from 1 through list.length($list) {
+  @for $i from 1 through l($list) {
     @if $i != $nth {
       $result: append($result, list.nth($list, $i));
     }
@@ -629,7 +672,7 @@ $type-check-schemas: (
 /// @param {unitless} $nth
 ///   The number of elements to include in the new list.
 ///
-/// @return {list}
+/// @returns {list}
 ///   The new list containing the first n elements of the original list.
 ///
 /// @group basics

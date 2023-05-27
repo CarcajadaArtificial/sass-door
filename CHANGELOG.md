@@ -1,15 +1,12 @@
 # Changelog
 
-## `v0.0.32`
+## `v0.0.33`
 
-- Added the `separator-character()` function.
-- Fixed the function `to-string()` to print correctly the last element of a list and map.
-- Fixed the function `to-string()` to support correct separators in lists.
-- Refactored the funciton `capitalize()`.
-- Updated the unit tests for the functions `to-string()` and `capitalize()`. `~/test/_basics.test.scss`.
+- Added the generoic length function `l()`.
+- Renamed and updated the `check-map-type()` function to `check-interface-type()`.
 
 ## Goals for `v0.1.0`
-  - To-dos: **11**
+  - To-dos: **9**
   - [ ] Document usage
     - [ ] Type validation usage
       - [ ] Single types
