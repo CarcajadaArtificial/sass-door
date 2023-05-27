@@ -480,6 +480,7 @@ $type-check-schemas: (
 /// @group type
 ///
 /// @todo complete documentation.
+/// @todo create a `check()` mixin that automatically renders errors on checks that fail.
 ///
 @function check($value, $type, $recurrent-type: false) {
   @if $recurrent-type {
@@ -609,7 +610,7 @@ $type-check-schemas: (
 /// @param {string} $current-key
 ///   The current key in the map.
 ///
-/// @returns {string/null/-1}
+/// @returns {-1|string|null}
 ///   `string`: The key that is next.
 ///   `null`: The current key is the last, so there is a null key next.
 ///   `-1`: Invalid argument types or key not found.
@@ -692,12 +693,10 @@ $type-check-schemas: (
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This mixin optionally applies a media query.
 ///
-/// @param {string/null} $mq
+/// @param {string|null} $mq
 ///   If this value is null, simply returns the content.
 ///
 /// @group basics
-///
-/// @todo Handle the exception path of the `check()` function.
 ///
 @mixin quick-mq($mq) {
   @if check($mq, (string, null)) {
@@ -708,18 +707,18 @@ $type-check-schemas: (
         @content;
       }
     }
+  } @else {
+    @include throw(value-msg($mq, 'string|null'));
   }
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This mixin optionally applies a pseudoclass.
 ///
-/// @param {string/null} $psuedo
+/// @param {string|null} $psuedo
 ///   If this value is null, simply returns the content.
 ///
 /// @group basics
-///
-/// @todo Handle the exception path of the `check()` function.
 ///
 @mixin quick-pseudo($pseudo) {
   @if check($pseudo, (string, null)) {
@@ -730,6 +729,8 @@ $type-check-schemas: (
         @content;
       }
     }
+  } @else {
+    @include throw(value-msg($pseudo, 'string|null'));
   }
 }
 

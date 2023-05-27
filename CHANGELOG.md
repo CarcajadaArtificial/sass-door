@@ -1,12 +1,11 @@
 # Changelog
 
-## `v0.0.33`
+## `v0.0.34`
 
-- Added the generoic length function `l()`.
-- Renamed and updated the `check-map-type()` function to `check-interface-type()`.
+- Minor updates
 
 ## Goals for `v0.1.0`
-  - To-dos: **9**
+  - To-dos: **7**
   - [ ] Document usage
     - [ ] Type validation usage
       - [ ] Single types
