@@ -1,7 +1,7 @@
 # Sass Door 🚪
-``Hello ( ´ ω ` )ノﾞ`` thanks a lot for being interested in this library. Here's the story, even though I really like SCSS, I find it far away from the things I deeply love. I feel uneasy that the general direction of Sass as a programming tool points becomes more and more unaligned with my own path as a developer. I think there are so many more robust and complex things that can be done using it if only it had a few upgrades.
+``Hello ( ´ ω ` )ノﾞ`` thanks a lot for being interested in this library. Here's the story, even though I really like SCSS, I find it distant from the things I deeply love. I feel uneasy that the general direction of Sass as a programming tool is becoming more and more unaligned with my own path as a developer. I think there are so many more robust and complex things that can be done using it if only it had a some upgrades.
 
- - **Type Safety** - Having Scss behave a little more like TypeScript or Rust would be fantastic. Having data types for different units and keywords would be helpful for writing functions and mixins.
+ - **Type Safety** - Having Sass behave a little more like TypeScript or Rust would be fantastic. Having data types for different units and keywords would be helpful for writing functions and mixins.
  - **Error Handling** - There are only three at-rules `@error`, `@warn`, and `@debug` that help somewhat in handling errors. Simply having a `throw()` function and mixin would make a huge difference.
  - **Basic Utilities** - Some staples are missing in the official modules, type conversions, transformations, and others.
 
@@ -15,7 +15,7 @@ npm i sass-door -D
 But in the case you're not using Node in your project you can import it as a git submodule or simply by copying `~/index.scss` to your project.
 
 ## Usage
-To use this library, one must simply import it using the `@use` sass keyword and target the index of the project.
+To use this library, one must simply import it using the `@use` sass keyword and target the root of the project.
 ```scss
 @use 'path/to/sass-door' as *;
 ```
@@ -24,7 +24,9 @@ To use this library, one must simply import it using the `@use` sass keyword and
 
 ---
 ## Type Safety
-*Coming soon*
+Type safety is a crucial aspect in any programming language, and the absence of it is nothing short of a calamity. It's like driving on treacherous roads without brakes, a recipe for disaster. Type validation, my friends, provides a shield of sanity in the chaotic realm of software development. It ensures that variables are used in a manner that aligns with their declared types, preventing a myriad of bugs and runtime errors that can plague codebases like an unstoppable virus.
+
+It's a vital tool for taming complexity, for it compels us to write code that is robust, predictable, and self-explanatory. Without it, we descend into a realm of uncertainty and untraceable errors, a land of darkness where debugging becomes an exercise in futility. So let us cherish and demand type safety in our programming languages, for it empowers us to write code that is reliable, maintainable, and worthy of our craft.
 
 ### Basic argument type
 With a few functions, a big map, and a little imagination we can simulate type safety right here in SCSS. _If only Scss would become rusty..._ So let's see the first example, say a simple function like one that squares a number. Given a scope for only number types (there won't be squaring strings, booleans, colors, etc) and a missing `@return` expression on the flow where the type does not match.
@@ -95,22 +97,23 @@ Number functions
 *Coming soon*
 
 ### Error handling in functions
-Once imported, the error-handling functions become available for usage. For example, this is how it would look like this:
+Once imported, the error-handling functions become available for usage. For example, this is how it would look like:
 ```scss
 @use 'path/to/lib/sass-door.scss' as *;
 
 @function example-function($ok) {
   @if not $ok {
-    @return throw('Incorrect input');
+    $error: throw('Incorrect input');
+    @return false;
   }
-  @return null;
+  @return true;
 }
 ```
 And once the `throw()` happens, it would look like this in the terminal:
 ```bash
 Error: "Incorrect input"
   ╷
-5 │     @return throw('Incorrect input');
+5 │     $error: throw('Incorrect input');
   │             ^^^^^^^^^^^^^^^^^^^^^^^^
   ╵
   path/to/index.scss 5:13 example-function()
@@ -145,20 +148,25 @@ As an additional feature, the error messa ge string is also applied as a custom 
 .example {
   @include example-mixin(false);
 }
-// .example {
-//   --scss-error: "Incorrect input";
-// }
+//  .example {
+//    .scss-error {
+//      --scss-error: "Incorrect input";
+//    }
+//  }
 ```
 
 ---
 ## Sass Basics
 Sass is a niche problem as a language with limited features. My opinion is that it can be much more. These are a set of functions and mixins (abbreviated as `@f` and `@m`) that do things that aren't available in the official SCSS modules. I just think they're neat.
 
-- `@f` [`capitalize()`](carcajadaartificial.github.io/sass-door/#function-capitalize) - Turns the first letter of a string into uppercase.
-- `@f` [`to-string()`](carcajadaartificial.github.io/sass-door/#function-to-string) - This function converts a value of any type into a string.
-- `@f` [`map-next-key()`](carcajadaartificial.github.io/sass-door/#function-map-next-key) - Returns the next key in a map given the current key. 
-- `@m` [`quick-mq()`]() - This mixin optionally applies a media query.
-- `@m` [`quick-pseudo()`]() - This mixin optionally applies a pseudoclass.
+- `@f` [`capitalize()`]() - Turns the first letter of a string into uppercase.
+- `@f` [`to-string()`]() - This function converts a value of any type into a string.
+- `@f` [`map-next-key()`]() - Returns the next key in a map given the current key. 
+- `@f` [`list-remove()`]() - Removes the element at the given index from a list.
+- `@f` [`list-cut()`]() - Returns a new list containing the first _n_ elements of the given list.
+- `@m` [`quick-mq()`]() - Optionally applies a media query.
+- `@m` [`quick-pseudo()`]() - Optionally applies a pseudoclass.
+- `@m` [`conditional-selector()`]() - Creates a selector based on a conditional value.
 
 ---
 ## Configuration

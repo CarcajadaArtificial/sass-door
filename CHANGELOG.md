@@ -1,11 +1,13 @@
 # Changelog
 
-## `v0.0.29`
+## `v0.0.35`
 
-- Fixed the case on recurrent types when the type is an interface.
+- Added the `check()` mixin.
+- Added the use for the `$catch` parameter on the `throw()` mixin.
+- Added documentation for the `check()` function and mixin.
 
 ## Goals for `v0.1.0`
-  - To-dos: **5**
+  - To-dos: **6**
   - [ ] Document usage
     - [ ] Type validation usage
       - [ ] Single types
