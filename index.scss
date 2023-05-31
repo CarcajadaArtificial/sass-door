@@ -214,8 +214,10 @@ $mixin-style-name: '--scss-error' !default;
 /// @group throw
 ///
 @mixin throw($message, $catch: $catching-enabled) {
-  .#{$mixin-style-name} {
-    #{$mixin-style-name}: '#{throw($message, $catch)}';
+  @if $catch {
+    .#{$mixin-style-name} {
+      #{$mixin-style-name}: '#{throw($message, $catch)}';
+    }
   }
 }
 
@@ -441,6 +443,8 @@ $type-check-schemas: (
 /// @returns {bool}
 ///   Returns `true` if the values have a recurring type, otherwise `false`.
 ///
+/// @group type
+///
 @function check-recurring-type($value, $type) {
   @if t-o($value, 'list') and not t-o($type, 'map') {
     @each $list-value in $value {
@@ -470,27 +474,67 @@ $type-check-schemas: (
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-///
+/// This function verifies the type of a given value, ensuring type safety, by taking in two parameters
+/// the value to be checked and the expected type.
 ///
 /// @param {any} $value
+///   The value that will be type verified.
+///
 /// @param {any} $type
+///   The type the value must be to pass the check.
+///
+/// @param {bool} $recurrent-type [false]
+///   If this is true and `$value` is of type list or map, checks if every item matches `$type`.
 ///
 /// @returns {bool}
+///   True if the value passes the check, false if it doesn't.
 ///
 /// @group type
 ///
-/// @todo complete documentation.
-/// @todo create a `check()` mixin that automatically renders errors on checks that fail.
-///
 @function check($value, $type, $recurrent-type: false) {
   @if $recurrent-type {
-    @return check-recurring-type($value, $type);
+    @if not t-o($recurrent-type, 'bool') {
+      $error: throw(value-msg($recurrent-type, 'bool'));
+      @return false;
+    } @else if not (t-o($value, 'list') or t-o($value, 'map')) {
+      $error: throw(value-msg($value, 'list or map, when $recurrent-type is true'));
+      @return false;
+    } @else {
+      @return check-recurring-type($value, $type);
+    }
   } @else if t-o($type, 'list') {
     @return check-union-type($value, $type);
   } @else if t-o($type, 'map') {
     @return check-interface-type($value, $type);
   } @else {
     @return check-individual-type($value, $type);
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This mixin allows for type safety by checking the type of a given value against the expected type,
+/// and if the check passes, it executes the provided content. Otherwise, it triggers an error through
+/// a local css variable.
+///
+/// @param {any} $value
+///   The value that will be type verified.
+///
+/// @param {any} $type
+///   The type the value must be to pass the check.
+///
+/// @param {bool} $recurrent-type [false]
+///   If this is true and `$value` is of type list or map, checks if every item matches `$type`.
+///
+/// @content
+///   Adds content if the value passes the check, adds a css error if it doesn't.
+///
+/// @group type
+///
+@mixin check($value, $type, $recurrent-type: false) {
+  @if check($value, $type, $recurrent-type) {
+    @content;
+  } @else {
+    @include throw(value-msg('#{to-string($value)}( type: #{t-o($value)})', $type));
   }
 }
 
