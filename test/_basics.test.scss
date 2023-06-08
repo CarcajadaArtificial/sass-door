@@ -94,6 +94,20 @@
     }
   }
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // list-join-many($lists...) [Function]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('list-join-many()') {
+    @include it('Returns the joined lists') {
+      $a: (10px, 20px, 30px);
+      $b: (40px, 50px, 60px);
+      $ab: list.join($a, $b);
+      @include assert-equal(list-join-many($a, $b), $ab);
+      $c: (70px, 80px, 90px);
+      $abc: list.join($ab, $c);
+      @include assert-equal(list-join-many($a, $b, $c), $abc);
+    }
+  }
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   // map-next-key($map, $current-key) [Function]
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
   @include describe('next-key-in-map()') {

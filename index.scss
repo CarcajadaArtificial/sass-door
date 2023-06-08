@@ -331,6 +331,62 @@ $type-check-schemas: (
 ) !default;
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group type
+///
+/// @todo Complete documentation
+///
+$type-absolute-length-units: ('cm', 'mm', 'in', 'px', 'pt', 'pc');
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group type
+///
+/// @todo Complete documentation
+///
+$type-relative-length-units: ('em', 'ex', 'ch', 'rem', 'vw', 'vh', 'vmin', 'vmax');
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group type
+///
+/// @todo Complete documentation
+///
+$type-resolution-units: ('dpi', 'dpcm', 'dppx');
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group type
+///
+/// @todo Complete documentation
+///
+$type-frecuency-units: ('Hz', 'kHz');
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group type
+///
+/// @todo Complete documentation
+///
+$type-angle-units: ('deg', 'rad', 'grad', 'turn');
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group type
+///
+/// @todo Complete documentation
+///
+$type-time-units: ('ms', 's');
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @group type
+///
+/// @todo Complete documentation
+///
+$type-length-units: list.join($type-absolute-length-units, $type-relative-length-units);
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This function varifies the individual type of a value and compares it to the selected type.
 ///
 /// @param {any} $value
@@ -732,6 +788,21 @@ $type-check-schemas: (
   }
 
   @return $new-list;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+///
+/// @param {list} $lists
+@function list-join-many($lists...) {
+  @if not check($lists, 'arglist') {
+    @return t-o($lists);
+  }
+
+  $joined-list: ();
+  @each $list in $lists {
+    $joined-list: list.join($joined-list, $list);
+  }
+  @return $joined-list;
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
