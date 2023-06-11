@@ -736,6 +736,25 @@ $type-length-units: list.join($type-absolute-length-units, $type-relative-length
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// Displays a map as a list of style values.
+///
+/// @param {map} $map
+///   This map's keys will become CSS properties with their corresponding map value.
+///
+/// @param {string} $prefix
+///   It helps to add strings like '--' when having CSS variables as a goal to display.
+///
+/// @group basics
+///
+@mixin map-to-styles($map, $prefix: '') {
+  @if check($map, 'map') and check($prefix, 'string') {
+    @each $key, $value in $map {
+      #{$prefix}#{$key}: #{$value};
+    }
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// Removes the element at the given index from a list.
 ///
 /// @param {list} $list

@@ -207,4 +207,46 @@
       }
     }
   }
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // map-to-styles($map, $prefix) [Mixin]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('map-to-styles()') {
+    $map: (
+      font-size: 16px,
+      line-height: 20px,
+      color: #089969,
+    );
+    @include it('Displays without suffix') {
+      @include assert {
+        @include output {
+          span {
+            @include map-to-styles($map);
+          }
+        }
+        @include expect {
+          span {
+            font-size: 16px;
+            line-height: 20px;
+            color: #089969;
+          }
+        }
+      }
+    }
+    @include it('Displays with suffix') {
+      @include assert {
+        @include output {
+          :root {
+            @include map-to-styles($map, '--');
+          }
+        }
+        @include expect {
+          :root {
+            --font-size: 16px;
+            --line-height: 20px;
+            --color: #089969;
+          }
+        }
+      }
+    }
+  }
 }

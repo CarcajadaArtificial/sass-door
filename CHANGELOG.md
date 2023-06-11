@@ -1,9 +1,8 @@
 # Changelog
 
-## `v0.0.36`
+## `v0.0.37`
 
-- Added type shorthands.
-- Added `list-join-many()` unit tests.
+- Added the `map-to-styles()` mixin with unit tests.
 
 ## Goals for `v0.1.0`
   - To-dos: **13**
