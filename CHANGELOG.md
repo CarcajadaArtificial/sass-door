@@ -1,8 +1,9 @@
 # Changelog
 
-## `v0.0.37`
+## `v0.0.38`
 
-- Added the `map-to-styles()` mixin with unit tests.
+- Added the `substring-match()` function with unit tests.
+- Updated README.
 
 ## Goals for `v0.1.0`
   - To-dos: **13**

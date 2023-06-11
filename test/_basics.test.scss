@@ -249,4 +249,19 @@
       }
     }
   }
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  // substring-match($string, $substring, $selector) [Function]
+  // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+  @include describe('substring-match()') {
+    $string: 'asdfghjkl';
+    @include it('Tests that the string contains the substring') {
+      @include assert-true(substring-match($string, 'fghj'));
+    }
+    @include it('Tests that the string starts with the substring') {
+      @include assert-true(substring-match($string, 'asdf', '^'));
+    }
+    @include it('Tests that the string ends with the substring') {
+      @include assert-true(substring-match($string, 'hjkl', '$'));
+    }
+  }
 }

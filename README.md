@@ -160,8 +160,11 @@ As an additional feature, the error messa ge string is also applied as a custom 
 Sass is a niche problem as a language with limited features. My opinion is that it can be much more. These are a set of functions and mixins (abbreviated as `@f` and `@m`) that do things that aren't available in the official SCSS modules. I just think they're neat.
 
 - `@f` [`capitalize()`]() - Turns the first letter of a string into uppercase.
+- `@f` [`separator-character()`]() - Returns the character value that corresponds with the separator "enum" built in sass.
+- `@f` [`substring-match()`]() - This function checks if a string contains ('*'), starts with ('^'), or ends with ('$') a substring.
 - `@f` [`to-string()`]() - This function converts a value of any type into a string.
 - `@f` [`map-next-key()`]() - Returns the next key in a map given the current key. 
+- `@m` [`map-to-styles()`]() - Displays a map as a list of style values.
 - `@f` [`list-remove()`]() - Removes the element at the given index from a list.
 - `@f` [`list-cut()`]() - Returns a new list containing the first _n_ elements of the given list.
 - `@m` [`quick-mq()`]() - Optionally applies a media query.

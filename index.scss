@@ -649,6 +649,41 @@ $type-length-units: list.join($type-absolute-length-units, $type-relative-length
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This function checks if a string contains ('*'), starts with ('^'), or ends with ('$') a substring.
+///
+/// @param {string} $string
+///   The string where the `$substring` must be matched.
+///
+/// @param {string} $substring
+///   The string that needs to be found insde `$string`.
+///
+/// @param {'^'|'$'|'*'} $selector
+///   The option that determines how must `$substring` be found inside `$string`.
+///
+/// @group basics
+///
+@function substring-match($string, $substring, $selector: '*') {
+  @if not
+    check($selector, ('^', '$', '*')) or not
+    check($string, 'string') or not
+    check($substring, 'string')
+  {
+    @return false;
+  }
+
+  $string-length: string.length($string);
+  $substring-length: string.length($substring);
+
+  @if $selector == '^' {
+    @return string.slice($string, 1, $substring-length) == $substring;
+  } @else if $selector == '$' {
+    @return string.slice($string, $string-length - $substring-length + 1) == $substring;
+  } @else {
+    @return string.index($string, $substring) != null;
+  }
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// This function converts a value of any type into a string.
 ///
 /// @param {any} $v
