@@ -1,8 +1,8 @@
 # Changelog
 
-## `v0.0.39`
+## `v0.0.40`
 
-- Added the `map-map()` function.
+- Added a `map-map()` hotfix.
 
 ## Goals for `v0.1.0`
   - To-dos: **13**

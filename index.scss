@@ -812,7 +812,7 @@ $type-length-units: list.join($type-absolute-length-units, $type-relative-length
 @function map-map($map, $callback-name, $args...) {
   $result-map: ();
   @each $key, $value in $map {
-    $mapped-value: meta.call($callback, $value, $args...);
+    $mapped-value: meta.call($callback-name, $value, $args...);
     $result-map: map.set($result-map, $key, $mapped-value);
   }
   @return $result-map;
