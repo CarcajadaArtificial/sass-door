@@ -1,9 +1,8 @@
 # Changelog
 
-## `v0.0.38`
+## `v0.0.39`
 
-- Added the `substring-match()` function with unit tests.
-- Updated README.
+- Added the `map-map()` function.
 
 ## Goals for `v0.1.0`
   - To-dos: **13**

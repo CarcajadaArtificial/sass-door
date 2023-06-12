@@ -790,6 +790,35 @@ $type-length-units: list.join($type-absolute-length-units, $type-relative-length
 }
 
 // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+/// This funcion processes every value of a map using a callback function.
+///
+/// @param {map} $map
+///   The map whose values will be processed.
+///
+/// @param {string} $callback-name
+///   The name of the function that will process the values in `$map`.
+///
+/// @param {arglist} $args...
+///   Other arguments that will be passed to the callback function.
+///
+/// @returns {map}
+///   A map with the same keys as `$map` but all the values were processed by the callback function.
+///
+/// @group basics
+///
+/// @todo Paramter Validation
+/// @todo Verify the callback function exists.
+///
+@function map-map($map, $callback-name, $args...) {
+  $result-map: ();
+  @each $key, $value in $map {
+    $mapped-value: meta.call($callback, $value, $args...);
+    $result-map: map.set($result-map, $key, $mapped-value);
+  }
+  @return $result-map;
+}
+
+// - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 /// Removes the element at the given index from a list.
 ///
 /// @param {list} $list

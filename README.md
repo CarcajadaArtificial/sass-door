@@ -165,6 +165,7 @@ Sass is a niche problem as a language with limited features. My opinion is that 
 - `@f` [`to-string()`]() - This function converts a value of any type into a string.
 - `@f` [`map-next-key()`]() - Returns the next key in a map given the current key. 
 - `@m` [`map-to-styles()`]() - Displays a map as a list of style values.
+- `@f` [`map-map()`]() - This funcion processes every value of a map using a callback function.
 - `@f` [`list-remove()`]() - Removes the element at the given index from a list.
 - `@f` [`list-cut()`]() - Returns a new list containing the first _n_ elements of the given list.
 - `@m` [`quick-mq()`]() - Optionally applies a media query.
