@@ -1,6 +1,6 @@
 # Changelog
 
-## `v0.0.40`
+## `v0.0.41`
 
 - Added a `map-map()` hotfix.
 
