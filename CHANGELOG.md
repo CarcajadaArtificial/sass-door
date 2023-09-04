@@ -1,10 +1,12 @@
 # Changelog
 
-## `v0.0.42`
+## v0.0.43
 
-- Added a `map-map()` hotfix.
+- Started new git fork implementation schema.
 
-## Goals for `v0.1.0`
+## Roadmap
+
+### v0.1.0
   - To-dos: **13**
   - [ ] Document usage
     - [ ] Type validation usage
@@ -20,7 +22,7 @@
     - [x] map-next-key()
   - [x] Add type shorthands
 
-### Ideas for `v0.2.0`
+## v0.2.0
   - [ ] Type validation
     - [ ] Add check for a dictionary with the same type.
     - [ ] Add a arglist option for spread args.
