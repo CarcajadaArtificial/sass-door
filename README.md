@@ -20,8 +20,6 @@ To use this library, one must simply import it using the `@use` sass keyword and
 @use 'path/to/sass-door' as *;
 ```
 
-[Read the reference](https://carcajadaartificial.github.io/sass-door/)
-
 ---
 ## Type Safety
 Type safety is a crucial aspect in any programming language, and the absence of it is nothing short of a calamity. It's like driving on treacherous roads without brakes, a recipe for disaster. Type validation, my friends, provides a shield of sanity in the chaotic realm of software development. It ensures that variables are used in a manner that aligns with their declared types, preventing a myriad of bugs and runtime errors that can plague codebases like an unstoppable virus.

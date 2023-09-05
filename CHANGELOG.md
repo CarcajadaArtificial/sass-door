@@ -1,8 +1,8 @@
 # Changelog
 
-## v0.0.43
+## v0.0.44
 
-- Started new git fork implementation schema.
+- Prepared for becoming a GitHub project template.
 
 ## Roadmap
 
