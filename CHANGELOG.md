@@ -1,13 +1,13 @@
 # Changelog
 
-## v0.0.44
+## v0.0.45
 
-- Prepared for becoming a GitHub project template.
+- Added documentation
 
 ## Roadmap
 
 ### v0.1.0
-  - To-dos: **13**
+  - To-dos: **14**
   - [ ] Document usage
     - [ ] Type validation usage
       - [ ] Single types
